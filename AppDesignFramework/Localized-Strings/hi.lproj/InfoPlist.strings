@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+ UserProfile
+
+  Created by Naveen Chauhan on 22/10/21.
+  
+*/
+"CFBundleDisplayName" = "UserProfile";
+"NSHumanReadableCopyright" = "2021 UserProfile.";

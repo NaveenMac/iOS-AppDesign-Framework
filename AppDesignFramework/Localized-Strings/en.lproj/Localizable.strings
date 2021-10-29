@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+ UserProfile
+
+  Created by Naveen Chauhan on 22/10/21.
+  
+*/
+
+"account_title" = "Account Title";
+"account_subtitle" = "Account Subtitle";
+"account_tagline" = "Account Tag Line";
+"menu_profile" = "My Profile";
+"menu_account" = "My Account";
+"menu_nominee" = "Nominee";
+"menu_services" = "Account Services";
+"menu_locker" = "Account Locker";
+"menu_activities" = "My Activities";
+"menu_setting" = "Settings";
+"menu_help" = "Help";
+"menu_about" = "About";
+"menu_logout" = "Logout";
+ 
