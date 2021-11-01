@@ -19,6 +19,7 @@ struct TextStyle:Codable {
         self.text = text
             
         }
+    
     enum CodingKeys: String, CodingKey {
         case text = "name"
         case style = "style"
