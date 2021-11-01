@@ -5,7 +5,20 @@
   Created by Naveen Chauhan on 22/10/21.
   
 */
+// FileManager
+"drive_title" = "FileManager Drive";
+"drive_subtitle" = "Documents in FileManager Drive are NOT treated as authentic original documents";
 
+"free_of_1GB" = "free of 1 GB";
+"folders" = "Folders";
+"files_in_root" = "Files in Root";
+"drive_home" = "Drive_home";
+"search_for_documents" = "Search for documents";
+"add_file" =  "Add File";
+"store_documents" = "Store your Important Documents";
+
+
+// UserProfile
 "account_title" = "Account Title";
 "account_subtitle" = "Account Subtitle";
 "account_tagline" = "Account Tag Line";

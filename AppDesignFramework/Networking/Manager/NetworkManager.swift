@@ -25,8 +25,6 @@ enum Result<String>{
 
 struct NetworkManager {
     static let environment : NetworkEnvironment = .production
-    static let MovieAPIKey = ""
-    let router = Router<AccountApi>()
     
     
     fileprivate func handleNetworkResponse(_ response: HTTPURLResponse, data:Data?=nil) -> Result<String>{
