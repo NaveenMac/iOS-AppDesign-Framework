@@ -213,7 +213,7 @@ extension UIView {
    }
    
    
-  static func setPaddedLabelStyle(label:PaddedLabel, style:[Style]){
+  static func  setPaddedLabelStyle(label:PaddedLabel, style:[Style]){
        for property in style {
            switch property.attr {
            case Attributes.textColor.rawValue:
@@ -274,7 +274,7 @@ extension UIView {
        }
    }
    
-    static func setUIButtonStyle(button:UIButton, style:[Style]){
+    static func setButtonStyle(button:UIButton, style:[Style]){
        for property in style {
            switch property.attr {
            case Attributes.width.rawValue:
