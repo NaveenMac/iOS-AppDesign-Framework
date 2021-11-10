@@ -1,15 +1,11 @@
 //
-//  Constants.swift
+//  Constants_Colors.swift
 //  FileManager
 //
-//  Created by Naveen Chauhan on 27/10/21.
+//  Created by Naveen Chauhan on 10/11/21.
 //
 
 import Foundation
-
-struct Constants {
-    static let APP_GROUP = "group.com.negd.digilocker"
-}
 
 struct Colors {
     static let EDUCATION_FOLDER_HEX = "#FFB54AFF"

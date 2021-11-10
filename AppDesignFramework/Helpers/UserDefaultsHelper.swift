@@ -7,11 +7,7 @@
 
 import Foundation
 
-enum UserDefaultKeys: String, CaseIterable {
-    case usedQuotaInString
-    case usedQuotaInBytes
-    case availableQuota
-}
+
 final class UserDefaultsHelper {
     static func setData<T>(value:T, key:UserDefaultKeys){
         let defaults = UserDefaults.standard

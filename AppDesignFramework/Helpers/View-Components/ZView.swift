@@ -7,23 +7,8 @@
 
 import UIKit
 
-import UIKit
 
-enum RelativePosition {
-    case top
-    case topRight
-    case topLeft
-    
-    case bottom
-    case bottomRight
-    case bottomLeft
-    
-    case center
-    case centerRight
-    case centerLeft
-    
-    case full
-}
+
 
 public class ZView: UIView {
 
