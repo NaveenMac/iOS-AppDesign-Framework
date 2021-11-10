@@ -50,6 +50,8 @@ enum Attributes:String {
    case borderColor = "borderColor"
    case imageNamed = "imageNamed"
    case tintColor = "tintColor"
+    
+   case visibility = "visibility"
 }
 
 
