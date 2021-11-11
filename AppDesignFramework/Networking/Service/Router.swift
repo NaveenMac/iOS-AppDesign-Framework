@@ -108,28 +108,36 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         var body = Data()
         if let paramName = parameters?["key"] as? String,
            let paramSrc = parameters?["path"] as? String,
-           let name = parameters?["name"] as? String,
-           let directoryPath = AppFileManager.shared.getRelativePath(folderName:paramSrc){
+           let filename = parameters?["name"] as? String,
+           let fileData = parameters?["data"] as? Data{
          
-            body.append("--\(boundary)\r\n")
-            body.append("Content-Disposition:form-data; name=\"\(paramName)\";")
-            
-            let url = NSURL.fileURL(withPath: directoryPath.appending(name))
-            if let fileData = try? Data(contentsOf: url, options: []){
+            let splitName = filename.split(separator: ".")
+                let name = String(describing: splitName.first)
                
-                body.append("filename=\"\(name)\"\r\n")
-                body.append("Content-Type: \"content-type header\"\r\n\r\n")
-                body.append(fileData)
+            var contentType:String?
+            
+            switch NSString(string: filename).pathExtension {
+            case "png":
+                contentType = "image/png"
+            case "jpg","jpeg":
+                contentType = "image/jpg"
+            case "pdf":
+                contentType = "application/pdf"
+            default:
+                print("Unknown Content Type")
             }
-            if !paramSrc.isEmpty{
-                body.append("\r\n--\(boundary)\r\n")
-                body.append("Content-Disposition:form-data; name=\"\("path")\"\r\n\r\n")
-                body.append("\(paramSrc)\r\n")
-                body.append("--\(boundary)--\r\n");
-            }else{
-                body.append("\r\n");
-                body.append("--\(boundary)--\r\n");
+            
+            guard let content_type = contentType else {
+                return
             }
+            body.append("--\(boundary)\r\n")
+            body.append("Content-Disposition:form-data; name=\"body\";")
+            
+            body.append("filename=\"\(filename)\"\r\n")
+            body.append("Content-Type: \(content_type)\r\n\r\n")
+            body.append(fileData)
+            body.append("\r\n");
+            body.append("--\(boundary)--\r\n");
         }
         
         
