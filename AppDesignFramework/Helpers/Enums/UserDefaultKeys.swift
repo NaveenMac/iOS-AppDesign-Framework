@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UserDefaultKeys: String, CaseIterable {
+enum UserDefaultKeys: String {
     case usedQuotaInString
     case usedQuotaInBytes
     case availableQuota

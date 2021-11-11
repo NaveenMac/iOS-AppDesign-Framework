@@ -60,7 +60,7 @@ extension UIStackView {
             subView.backgroundColor = col
         }
         
-        subView.alpha = 0.9
+        subView.alpha = 1.0
         subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         insertSubview(subView, at: 0)
     }
