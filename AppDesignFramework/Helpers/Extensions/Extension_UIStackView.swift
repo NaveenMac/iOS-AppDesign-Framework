@@ -56,6 +56,7 @@ extension UIStackView {
     func addBackgroundImage(image:UIImage, color: UIColor?) {
         let subView = UIImageView(frame: bounds)
         subView.image = image
+        subView.contentMode = .scaleAspectFit
         if let col = color {
             subView.backgroundColor = col
         }

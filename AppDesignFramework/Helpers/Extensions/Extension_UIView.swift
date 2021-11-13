@@ -8,6 +8,30 @@
 import UIKit
 
 extension UIView {
+    
+    func addActivityIndicator(size:CGSize = CGSize(width: 100, height: 100)){
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.tag = ViewConstants.activityIndicatorTag
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.startAnimating()
+        self.addSubview(indicator)
+        let views = ["indicator":indicator]
+        let metrics = ["indicatorWidth":size.width, "indicatorHeight":size.height]
+        var allConstraints = [NSLayoutConstraint]()
+        
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-[indicator(==indicatorWidth)]-|", options: [.alignAllCenterX], metrics: metrics, views: views)
+        allConstraints += horizontalConstraints
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-[indicator(==indicatorHeight)]-|", options: [.alignAllCenterY], metrics: metrics, views: views)
+        allConstraints += verticalConstraints
+        NSLayoutConstraint.activate(allConstraints)
+        
+    }
+    
+    func removeActivityIndicator(){
+        if let indicator = self.viewWithTag(ViewConstants.activityIndicatorTag) as? UIActivityIndicatorView {
+            indicator.removeFromSuperview()
+        }
+    }
   func addTopBorderWithColor(color: UIColor, width: CGFloat) {
     let border = CALayer()
     border.backgroundColor = color.cgColor

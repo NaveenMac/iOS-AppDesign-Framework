@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Colors {
+struct ColorConstants {
     static let EDUCATION_FOLDER_HEX = "#FFB54AFF"
     static let HEALTH_FOLDER_HEX = "#4AC367FF"
+    static let HEADER_IMG_COLOR = "#633DF8FF"
 }
