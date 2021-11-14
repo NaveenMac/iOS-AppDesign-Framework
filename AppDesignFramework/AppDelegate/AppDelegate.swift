@@ -21,9 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UINavigationBar.appearance().setBackgroundImage(UIImage(named: "nav-header"), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().backIndicatorImage = UIImage(named: "ic_back")
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "ic_back")
+        UINavigationBar.appearance().barTintColor = UIColor(hex: ColorConstants.HEADER_IMG_COLOR)
 //
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: UIControl.State.highlighted)

@@ -66,6 +66,11 @@ extension UIStackView {
         insertSubview(subView, at: 0)
     }
     
+    func removeBackgroundImage(){
+        if let view = self.subviews[0] as? UIImageView {
+            view.removeFromSuperview()
+        }
+    }
     func reverseSubviewsZIndex(setNeedsLayout: Bool = true) {
       let stackedViews = self.arrangedSubviews
 
