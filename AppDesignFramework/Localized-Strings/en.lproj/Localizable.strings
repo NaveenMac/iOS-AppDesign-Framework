@@ -6,13 +6,13 @@
   
 */
 // FileManager
-"drive_title" = "FileManager Drive";
-"drive_subtitle" = "Documents in FileManager Drive are NOT treated as authentic original documents";
+"drive_title" = "DigiLocker Drive";
+"drive_subtitle" = "Documents in DigiLocker Drive are NOT treated as authentic original documents";
 
 "free_of_1GB" = "free of 1 GB";
 "folders" = "Folders";
 "files_in_root" = "Files";
-"drive_home" = "Drive_home";
+"drive_home" = "Files";
 "search_for_documents" = "Search for documents";
 "add_file" =  "Add File";
 "store_documents" = "Store your Important Documents";
@@ -25,8 +25,8 @@
 "menu_profile" = "My Profile";
 "menu_account" = "My Account";
 "menu_nominee" = "Nominee";
-"menu_services" = "Account Services";
-"menu_locker" = "Account Locker";
+"menu_services" = "DigiLocker Services";
+"menu_locker" = "Health Locker";
 "menu_activities" = "My Activities";
 "menu_setting" = "Settings";
 "menu_help" = "Help";

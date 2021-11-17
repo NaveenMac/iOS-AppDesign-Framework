@@ -11,7 +11,7 @@ extension UIView {
     
     func addActivityIndicator(size:CGSize = CGSize(width: 100, height: 100)){
         let indicator = UIActivityIndicatorView(style: .gray)
-        indicator.tag = ViewConstants.activityIndicatorTag
+        indicator.tag = Int.Tags.activityIndicatorTag
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.startAnimating()
         self.addSubview(indicator)
@@ -28,7 +28,7 @@ extension UIView {
     }
     
     func removeActivityIndicator(){
-        if let indicator = self.viewWithTag(ViewConstants.activityIndicatorTag) as? UIActivityIndicatorView {
+        if let indicator = self.viewWithTag(Int.Tags.activityIndicatorTag) as? UIActivityIndicatorView {
             indicator.removeFromSuperview()
         }
     }

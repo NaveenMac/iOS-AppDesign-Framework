@@ -20,14 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         //UINavigationBar.appearance().setBackgroundImage(UIImage(named: "nav-header"), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
         UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().backIndicatorImage = UIImage(named: "ic_back")
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "ic_back")
-        UINavigationBar.appearance().barTintColor = UIColor(hex: ColorConstants.HEADER_IMG_COLOR)
+        UINavigationBar.appearance().barTintColor = UIColor.Background.filesHeader
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+       
 //
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: UIControl.State.highlighted)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        
         
         
         // Override point for customization after application launch.
@@ -39,7 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.appWindow.makeKeyAndVisible()
         return true
     }
-
+    
+    
    
 }
 
