@@ -134,6 +134,7 @@ extension UIView {
  static func  setPaddedLabelStyle(label:PaddedLabel, style:[Style]){
       for property in style {
           switch property.attr {
+          
           case Attributes.textColor.rawValue:
               label.textColor = UIColor(hex: property.value!)
           case Attributes.backgroundColor.rawValue:

@@ -13,6 +13,7 @@ extension Int {
         static var activityIndicatorTag : Int { return 999 }
         static var curveTag: Int { return 100 }
         static var filesBodyTag: Int { return 111 }
+        static var tashBinTag: Int { return 888}
     }
     
     

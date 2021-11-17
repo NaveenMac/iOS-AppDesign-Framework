@@ -32,4 +32,6 @@
 "menu_help" = "Help";
 "menu_about" = "About";
 "menu_logout" = "Logout";
- 
+
+"no_files" = "There are no files in the folder yet..";
+"no_files_add_documents" = "Let's add spome documents";

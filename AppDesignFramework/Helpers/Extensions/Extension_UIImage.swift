@@ -10,4 +10,5 @@ import UIKit
 extension UIImage {
     static let curveImage = UIImage(named: "transparent-curve")
     static let filesHeader = UIImage(named: "files-background")
+    static let trashBin = UIImage(named: "empty-drive")
 }
