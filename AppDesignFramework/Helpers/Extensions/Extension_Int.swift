@@ -14,6 +14,7 @@ extension Int {
         static var curveTag: Int { return 100 }
         static var filesBodyTag: Int { return 111 }
         static var tashBinTag: Int { return 888}
+        static var progressView: Int { return 222 }
     }
     
     

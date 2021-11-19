@@ -27,6 +27,24 @@ extension UIView {
         
     }
     
+    func addUIProgressView(size:CGSize = CGSize(width: 270, height: 4))->UIProgressView{
+        let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.tag = Int.Tags.progressView
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(progressView)
+        self.bringSubviewToFront(progressView)
+        let views = ["progressView":progressView]
+        let metrics = ["width":size.width, "height":size.height]
+        var allConstraints = [NSLayoutConstraint]()
+        
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[progressView(width)]|", options: [.alignAllCenterX], metrics: metrics, views: views)
+        allConstraints += horizontalConstraints
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[progressView(height)]|", options: [.alignAllCenterY], metrics: metrics, views: views)
+        allConstraints += verticalConstraints
+        NSLayoutConstraint.activate(allConstraints)
+        return progressView
+    }
+    
     func removeActivityIndicator(){
         if let indicator = self.viewWithTag(Int.Tags.activityIndicatorTag) as? UIActivityIndicatorView {
             indicator.removeFromSuperview()
