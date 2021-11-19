@@ -498,5 +498,14 @@ extension UIView {
           }
       }
   }
+    
+    func addShadowWithUploadIcon(){
+       
+        let shadow = UIView(frame: CGRect(x: 0, y: 0, width: 52, height: 52))
+        shadow.accessibilityLabel = "Shadow"
+        shadow.backgroundColor = .black
+        shadow.alpha = 0.4
+        self.addSubview(shadow)
+    }
 }
 

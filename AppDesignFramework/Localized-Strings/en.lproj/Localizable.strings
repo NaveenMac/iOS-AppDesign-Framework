@@ -33,5 +33,8 @@
 "menu_about" = "About";
 "menu_logout" = "Logout";
 
+"digilocker_drive" = "DigiLocker Drive";
+"drive_home" = "Drive_Home";
+
 "no_files" = "There are no files in the folder yet..";
 "no_files_add_documents" = "Let's add spome documents";

@@ -22,15 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
-        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().tintColor = UIColor.Background.filesHeader
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "ic_back")
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "ic_back")
-        UINavigationBar.appearance().barTintColor = UIColor.Background.filesHeader
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "ic_blue_back")
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "ic_blue_back")
+        UINavigationBar.appearance().barTintColor = UIColor.Background.body
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.Background.filesHeader]
        
 //
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        
         
         
         

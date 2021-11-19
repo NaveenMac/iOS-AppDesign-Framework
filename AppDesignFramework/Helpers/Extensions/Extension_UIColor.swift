@@ -15,8 +15,15 @@ extension UIColor {
         static var healthFolder : UIColor { return UIColor(hex: String.ColorHex.healthFolder) ?? .clear}
         static var educationFolder : UIColor { return UIColor(hex: String.ColorHex.educationFolder) ?? .clear}
         static var filesHeader : UIColor { return UIColor(hex: String.ColorHex.filesHeader) ?? .clear}
+        
+        
     }
     
+    struct Foreground {
+        static var breadcrumbTextColor: UIColor { return UIColor(hex: String.ColorHex.breadcrumbTextColor) ?? .clear}
+        
+        static var breadcrumbActiveTextColor: UIColor {return UIColor(hex: String.ColorHex.breadcrumbActiveTextColor) ?? .clear}
+    }
     
     
     public convenience init?(hex: String) {
