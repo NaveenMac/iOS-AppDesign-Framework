@@ -9,10 +9,13 @@
 import Foundation
 
 public typealias NetworkRouterCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?)->()
-
+public typealias NetworkRouterProgress = (_ progress: Double)->()
 protocol NetworkRouter: class {
     associatedtype EndPoint: EndPointType
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion)
+    
+    func requestWithProgress(_ route: EndPoint, completion: @escaping NetworkRouterCompletion, progessHandler: @escaping NetworkRouterProgress)
+    
     func cancel()
 }
 
@@ -27,11 +30,31 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
             task = session.dataTask(with: request, completionHandler: { data, response, error in
                 completion(data, response, error)
             })
+            
         }catch {
             completion(nil, nil, error)
         }
         self.task?.resume()
     }
+    
+    func requestWithProgress(_ route: EndPoint, completion: @escaping NetworkRouterCompletion, progessHandler: @escaping NetworkRouterProgress) {
+        let session = URLSession.shared
+        var observation:Int?
+        do {
+            let request = try self.buildRequest(from: route)
+            NetworkLogger.log(request: request)
+            task = session.dataTask(with: request, completionHandler: { data, response, error in
+                completion(data, response, error)
+            })
+            observation = task?.progress.observe(\.fractionCompleted, changeHandler: { progess, _ in
+                progessHandler(progess.fractionCompleted)
+            })
+        }catch {
+            completion(nil, nil, error)
+        }
+        self.task?.resume()
+    }
+    
     
     func cancel() {
         self.task?.cancel()
