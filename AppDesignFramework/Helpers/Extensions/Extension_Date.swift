@@ -7,10 +7,11 @@
 
 import Foundation
 
-extension Data{
-    mutating func append(_ string: String, using encoding: String.Encoding = .utf8) {
-       if let data = string.data(using: encoding) {
-        append(data)
-    }
-  }
+extension Date{
+     func convertDateToString()-> String{
+         let df = DateFormatter()
+         df.dateFormat = "YYYY-MM-dd"
+        let now = df.string(from: self)
+        return now
+     }
 }

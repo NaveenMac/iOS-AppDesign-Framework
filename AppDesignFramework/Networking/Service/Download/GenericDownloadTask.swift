@@ -10,7 +10,7 @@ import Foundation
 class GenericDownloadTask {
 
    var completionHandler: ResultType<Data>.Completion?
-   var progressHandler: ((Double) -> Void)?
+   var progressHandler: ((Double,Double) -> Void)?
 
    private(set) var task: URLSessionDataTask
    var expectedContentLength: Int64 = 0
@@ -27,6 +27,7 @@ class GenericDownloadTask {
 }
 
 extension GenericDownloadTask: DownloadTask {
+   
 
    func resume() {
       task.resume()

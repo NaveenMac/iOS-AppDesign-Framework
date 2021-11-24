@@ -52,10 +52,11 @@ extension DownloadService: URLSessionDataDelegate {
          return
       }
       task.buffer.append(data)
+      
       let percentageDownloaded = Double(task.buffer.count) / Double(task.expectedContentLength)
-       
+   
         DispatchQueue.main.async {
-            task.progressHandler?(percentageDownloaded)
+            task.progressHandler?(Double(task.expectedContentLength),percentageDownloaded)
          }
    
    }

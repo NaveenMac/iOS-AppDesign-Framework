@@ -107,6 +107,26 @@ extension FileManager {
         return directoryPath
     }
     
+    func getFilePath(folderName : String) -> String?{
+        let directoryPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.appgroup.ios")!
+        var pathString = ""
+        if folderName.isEmpty {
+         pathString = directoryPath.path.appending("/Drive/")
+        }else{
+          pathString = directoryPath.path.appending("/Drive/\(folderName)").appending("/")
+        }
+        
+         if !FileManager.default.fileExists(atPath: pathString) {
+            do {
+                try FileManager.default.createDirectory(atPath: pathString, withIntermediateDirectories: true, attributes: nil)
+              } catch {
+                print(error)
+                return nil
+                }
+            }
+        return pathString
+      }
+    
      func checkForFileDirectory()  throws ->Bool{
         let defaultManager = FileManager.default
         if let filesDirUrl = AppStorage.files.directoryURL {
