@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
     
-    func addActivityIndicator(size:CGSize = CGSize(width: 100, height: 100)){
+    func addActivityIndicator(size:CGSize = CGSize(width: 100, height: 100)) -> UIActivityIndicatorView{
         let indicator = UIActivityIndicatorView(style: .gray)
         indicator.tag = Int.Tags.activityIndicatorTag
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,27 @@ extension UIView {
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-[indicator(==indicatorHeight)]-|", options: [.alignAllCenterY], metrics: metrics, views: views)
         allConstraints += verticalConstraints
         NSLayoutConstraint.activate(allConstraints)
+        return indicator
+    }
+    
+    func addUIProgressView(size:CGSize = CGSize(width: 270, height: 4))->UIProgressView{
+        let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.trackTintColor = .black
+        progressView.progressTintColor = .blue
+        progressView.tag = Int.Tags.progressView
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(progressView)
+        self.bringSubviewToFront(progressView)
+        let views = ["progressView":progressView]
+        let metrics = ["width":size.width, "height":size.height]
+        var allConstraints = [NSLayoutConstraint]()
         
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[progressView]-40-|", options: [.alignAllCenterX], metrics: metrics, views: views)
+        allConstraints += horizontalConstraints
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-100-[progressView]", options: [.alignAllCenterY], metrics: metrics, views: views)
+        allConstraints += verticalConstraints
+        NSLayoutConstraint.activate(allConstraints)
+        return progressView
     }
     
     func removeActivityIndicator(){

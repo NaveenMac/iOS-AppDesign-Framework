@@ -9,10 +9,13 @@
 import Foundation
 
 public typealias NetworkRouterCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?)->()
-
+public typealias NetworkRouterRequest = (_ request: URLRequest)->()
 protocol NetworkRouter: class {
     associatedtype EndPoint: EndPointType
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion)
+    
+    func downloadRequest(_ route: EndPoint, completion: @escaping NetworkRouterRequest)
+    
     func cancel()
 }
 
@@ -27,11 +30,24 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
             task = session.dataTask(with: request, completionHandler: { data, response, error in
                 completion(data, response, error)
             })
+            
         }catch {
             completion(nil, nil, error)
         }
         self.task?.resume()
     }
+    
+    func downloadRequest(_ route: EndPoint, completion: @escaping NetworkRouterRequest) {
+        
+        do {
+            let request = try self.buildRequest(from: route)
+            completion(request)
+        }catch {
+           
+        }
+       
+    }
+    
     
     func cancel() {
         self.task?.cancel()
@@ -41,7 +57,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         
         var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path),
                                  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
-                                 timeoutInterval: 10.0)
+                                 timeoutInterval: 300.0)
         
         request.httpMethod = route.httpMethod.rawValue
         do {
@@ -111,9 +127,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
            let filename = parameters?["name"] as? String,
            let fileData = parameters?["data"] as? Data{
          
-            let splitName = filename.split(separator: ".")
-                let name = String(describing: splitName.first)
-               
+             
             var contentType:String?
             
             switch NSString(string: filename).pathExtension {
@@ -131,13 +145,20 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
                 return
             }
             body.append("--\(boundary)\r\n")
-            body.append("Content-Disposition:form-data; name=\"body\";")
+            body.append("Content-Disposition:form-data; name=\"\(paramName)\";")
             
             body.append("filename=\"\(filename)\"\r\n")
             body.append("Content-Type: \(content_type)\r\n\r\n")
             body.append(fileData)
-            body.append("\r\n");
-            body.append("--\(boundary)--\r\n");
+            if !paramSrc.isEmpty{
+                body.append("\r\n--\(boundary)\r\n")
+                body.append("Content-Disposition:form-data; name=\"\("path")\"\r\n\r\n")
+                body.append("\(paramSrc)\r\n")
+                body.append("--\(boundary)--\r\n");
+            }else{
+                body.append("\r\n");
+                body.append("--\(boundary)--\r\n");
+            }
         }
         
         
