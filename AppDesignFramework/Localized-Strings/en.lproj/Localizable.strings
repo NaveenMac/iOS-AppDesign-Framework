@@ -6,8 +6,8 @@
   
 */
 // FileManager
-"drive_title" = "DigiLocker Drive";
-"drive_subtitle" = "Documents in DigiLocker Drive are NOT treated as authentic original documents";
+"drive_title" = "File Manager Drive";
+"drive_subtitle" = "Documents in File Manager Drive are NOT treated as authentic original documents";
 
 "free_of_1GB" = "free of 1 GB";
 "folders" = "Folders";
@@ -25,7 +25,7 @@
 "menu_profile" = "My Profile";
 "menu_account" = "My Account";
 "menu_nominee" = "Nominee";
-"menu_services" = "DigiLocker Services";
+"menu_services" = "File Manager Services";
 "menu_locker" = "Health Locker";
 "menu_activities" = "My Activities";
 "menu_setting" = "Settings";
