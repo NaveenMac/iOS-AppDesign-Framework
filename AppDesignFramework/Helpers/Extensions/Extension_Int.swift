@@ -15,6 +15,8 @@ extension Int {
         static var filesBodyTag: Int { return 111 }
         static var tashBinTag: Int { return 888}
         static var progressView: Int { return 222 }
+        
+        static var addFileButton: Int { return 1001 }
     }
     
     

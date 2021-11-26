@@ -11,6 +11,7 @@ enum ToastType{
     case error
     case success
     case warning
+    case custom
 }
 
 extension UIViewController {
@@ -29,18 +30,24 @@ extension UIViewController {
     func showToast(type:ToastType,message : String, font: UIFont) {
 
         let toastLabel = PaddedLabel()
-        toastLabel.paddingLeft = 40
-        toastLabel.paddingRight  = 40
+        toastLabel.paddingLeft = 15
+        toastLabel.paddingRight = 15
+        toastLabel.paddingTop = 15
+        toastLabel.paddingBottom = 15
+        toastLabel.font = UIFont.appRegularFontWith(size: 14)
         toastLabel.translatesAutoresizingMaskIntoConstraints = false
         switch type {
         case .error:
-            toastLabel.backgroundColor = UIColor.red
+            toastLabel.backgroundColor = UIColor(hex: "#FF0000FF")
             toastLabel.textColor = UIColor.white
         case .success:
-            toastLabel.backgroundColor = UIColor.green
+            toastLabel.backgroundColor = UIColor(hex: "#28A745FF")
             toastLabel.textColor = UIColor.white
         case .warning:
-            toastLabel.backgroundColor = UIColor.yellow
+            toastLabel.backgroundColor = UIColor(hex: "#FFC106FF")
+            toastLabel.textColor = UIColor.black
+        case .custom:
+            toastLabel.backgroundColor = UIColor(hex: "#343A3FFF")
             toastLabel.textColor = UIColor.black
         }
         toastLabel.font = font
@@ -56,7 +63,7 @@ extension UIViewController {
         
         var allConstraints = [NSLayoutConstraint]()
         var HConstraints = NSLayoutConstraint.constraints(
-            withVisualFormat: "H:|-30-[label]-30-|",
+            withVisualFormat: "H:|-31-[label]-31-|",
             options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
           metrics: nil,
             views: ["superview":window, "label":toastLabel])
@@ -70,14 +77,19 @@ extension UIViewController {
             views: ["superview":window, "label":toastLabel])
         allConstraints += VConstraints
         NSLayoutConstraint.activate(allConstraints)
+        toastLabel.transform = CGAffineTransform(translationX: 0, y: 500)
         
-        UIView.animate(withDuration: 7, delay: 0.1, options: .curveLinear, animations: {
-             toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-           toastLabel.removeFromSuperview()
-        })
+        UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.5,
+        initialSpringVelocity: 0.5, options: [], animations: {
+            toastLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.7, delay: 5.0, options: [], animations: {
+                toastLabel.transform = CGAffineTransform(translationX: -500, y: 0)
+            }, completion: {_ in
+                toastLabel.removeFromSuperview()
+                })
+            })
+    
     }
-    
-    
     
 }
