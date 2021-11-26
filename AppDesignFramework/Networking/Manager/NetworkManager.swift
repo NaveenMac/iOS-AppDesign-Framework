@@ -30,7 +30,20 @@ struct NetworkManager {
     fileprivate func handleNetworkResponse(_ response: HTTPURLResponse, data:Data?=nil) -> Result<String>{
         switch response.statusCode {
         case 200...299: return .success
-        case 401...500: return .failure(NetworkResponse.authenticationError.rawValue)
+        case 401...500:
+            guard let data = data else {return .failure(NetworkResponse.authenticationError.rawValue)}
+            
+            if  let apiData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers),
+                let apiResponse = try? JSONDecoder().decode(FileApiResponse.self, from: apiData as! Data) {
+                return .failure(apiResponse.errorDescription ?? NetworkResponse.authenticationError.rawValue)
+            }
+               else{
+                return .failure(NetworkResponse.authenticationError.rawValue)
+            }
+            
+            
+            
+            
         case 501...599: return .failure(NetworkResponse.badRequest.rawValue)
         case 600: return .failure(NetworkResponse.outdated.rawValue)
         default:
