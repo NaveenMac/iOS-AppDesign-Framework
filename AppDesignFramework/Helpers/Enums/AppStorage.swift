@@ -64,17 +64,15 @@ enum AppStorage: Int {
                     contents: Data?,
                     attributes: [FileAttributeKey: Any]? = nil) -> Bool {
       // Set the base directory URL for the chosen app directory.
-      guard let baseDirectory = self.directoryURL else {
-         // The File Manager couldn't find the directory or create the file.
-         print("Unable to locate the directory: \(self.rawValue).")
-         return false
-      }
+    if let fileURL = FileManager.App.files.getFileUrl(filename: filename) {
+        return FileManager.default.createFile(atPath: fileURL.path,
+                                              contents: contents,
+                                              attributes: attributes)
+    }else{
+        return false
+    }
+     
       
-      let fileURL = baseDirectory.appendingPathComponent(filename)
-      
-      return FileManager.default.createFile(atPath: fileURL.path,
-                                            contents: contents,
-                                            attributes: attributes)
    }
     
     func getFileUrl(filename:String)->URL?{
