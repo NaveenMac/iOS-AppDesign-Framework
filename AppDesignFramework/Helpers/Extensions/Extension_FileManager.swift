@@ -129,7 +129,7 @@ extension FileManager {
     
      func checkForFileDirectory()  throws ->Bool{
         let defaultManager = FileManager.default
-        if let filesDirUrl = AppStorage.files.directoryURL {
+        if let filesDirUrl = FileManager.App.files.directoryURL {
             if !defaultManager.fileExists(atPath: filesDirUrl.path){
                 try defaultManager.createDirectory(atPath: filesDirUrl.path, withIntermediateDirectories: false, attributes: nil)
                 return true
@@ -142,11 +142,11 @@ extension FileManager {
      }
     
     func isFileExistsInDrive(name:String)->Bool{
-        guard let fileUrl = AppStorage.files.getFileUrl(filename: name) else {
+        guard let fileUrl =  FileManager.App.files.getFileUrl(filename: name) else {
             
             return false
         }
-        if AppStorage.files.fileExists(filename: name) {
+        if  FileManager.App.files.fileExists(filename: name) {
            
             
             return true
