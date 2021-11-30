@@ -8,13 +8,13 @@
 import UIKit
 
 extension UIImage {
-    static let curveImage = UIImage(named: "transparent-curve")
-    static let filesHeader = UIImage(named: "files-background")
-    static let trashBin = UIImage(named: "empty-drive")
+    static let curveImage = UIImage(named: "drive_transparent-curve")
+    static let filesHeader = UIImage(named: "drive_files_background")
+    static let trashBin = UIImage(named: "drive_empty_drive")
     
-    static let uploadImage = UIImage(named: "upload-cloud")
+    static let uploadImage = UIImage(named: "drive_upload_cloud")
     
-    static let chevronRight = UIImage(named: "chevron-right")
+    static let chevronRight = UIImage(named: "drive_chevron_right")
     
     
     static func drawPDFfromURL(url: URL) -> UIImage? {
