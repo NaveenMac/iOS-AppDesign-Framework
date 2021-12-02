@@ -10,6 +10,7 @@ import Foundation
 struct RadioFieldStyle:Codable {
     var title:TextStyle?
     var option:TextStyle?
+    var list:[String]?
     var tag:Int?
     var style:[Style]?
     init(tag:Int? = nil) {
@@ -24,6 +25,7 @@ struct RadioFieldStyle:Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         title = try values.decodeIfPresent(TextStyle.self, forKey: .title)
         option = try values.decodeIfPresent(TextStyle.self, forKey: .option)
+        list = try values.decodeIfPresent([String].self, forKey: .list)
         tag = try values.decodeIfPresent(Int.self, forKey: .tag)
         style = try values.decodeIfPresent([Style].self, forKey:.style)
         

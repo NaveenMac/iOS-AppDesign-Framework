@@ -25,6 +25,13 @@ extension UIColor {
         static var breadcrumbActiveTextColor: UIColor {return UIColor(hex: String.ColorHex.breadcrumbActiveTextColor) ?? .clear}
     }
     
+    struct TextField {
+        static var inactivieField: UIColor {  return UIColor(hex: "#D8D8D8FF") ?? .gray}
+        static var activieField: UIColor {  return UIColor(hex: "#0000FFFF") ?? .gray}
+        static var normalText: UIColor {  return UIColor(hex: "#777777FF") ?? .gray}
+        static var activeText: UIColor {  return UIColor(hex: "#474747FF") ?? .gray}
+    }
+    
     
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
