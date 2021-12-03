@@ -245,7 +245,39 @@ extension UIView {
       }
   }
   
-  
+    static func setButtonStyle(button:Button, style:[Style]){
+       for property in style {
+           switch property.attr {
+           case Attributes.width.rawValue:
+               NSLayoutConstraint.activate([
+                   button.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+               ])
+           case Attributes.height.rawValue:
+               NSLayoutConstraint.activate([
+                   button.heightAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+               ])
+           case Attributes.textColor.rawValue:
+               button.titleLabel?.textColor = UIColor(hex: property.value!)
+           case Attributes.defaultBackgroundColor.rawValue:
+            button.setBackgroundColor(UIColor(hex: property.value!), for: .normal)
+           case Attributes.disabledBackgroundColor.rawValue:
+            button.setBackgroundColor(UIColor(hex: property.value!), for: .disabled)
+           case Attributes.fontSize.rawValue:
+           button.titleLabel?.font = UIFont.appRegularFontWith(size:CGFloat((property.value! as NSString).floatValue))
+           case Attributes.width.rawValue:
+               NSLayoutConstraint.activate([
+                   button.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+               ])
+           case Attributes.cornerRadius.rawValue:
+               button.layer.cornerRadius = CGFloat((property.value! as NSString).floatValue)
+               button.layer.masksToBounds = true
+               
+              
+           default:
+               print("NA")
+           }
+       }
+   }
    static func setImageViewStyle(image:UIImageView, style:[Style]){
       for property in style {
           switch property.attr {
