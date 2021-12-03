@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 extension UIView {
     
     func addActivityIndicator(size:CGSize = CGSize(width: 100, height: 100)) -> UIActivityIndicatorView{
@@ -579,6 +580,9 @@ extension UIView {
             rotation.repeatCount = Float.greatestFiniteMagnitude
             self.layer.add(rotation, forKey: "rotationAnimation")
         }
+    
+    
+    
     
 }
 
