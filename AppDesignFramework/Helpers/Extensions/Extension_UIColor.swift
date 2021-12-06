@@ -15,7 +15,7 @@ extension UIColor {
         static var healthFolder : UIColor { return UIColor(hex: String.ColorHex.healthFolder) ?? .clear}
         static var educationFolder : UIColor { return UIColor(hex: String.ColorHex.educationFolder) ?? .clear}
         static var filesHeader : UIColor { return UIColor(hex: String.ColorHex.filesHeader) ?? .clear}
-        
+        static var actionButton: UIColor { return UIColor(hex: String.ColorHex.mainButton) ?? .clear}
         
     }
     

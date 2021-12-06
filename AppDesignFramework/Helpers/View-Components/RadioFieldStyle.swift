@@ -33,7 +33,7 @@ struct RadioFieldStyle:Codable {
     }
     
     static func getRadioButtonGroup(tag:Int, style:RadioFieldStyle)->UIStackView {
-        let stack = UIView.VStack(spacing: 5, distribution: .fillProportionally)
+        let stack = UIView.VStack(spacing: 5,alignment: .fill, distribution: .fill)
         stack.tag = tag
         let title = PaddedLabel()
         title.font = UIFont.systemFont(ofSize: 12.76)
@@ -46,7 +46,7 @@ struct RadioFieldStyle:Codable {
         stack.addArrangedSubview(title)
         
         if let data = style.list {
-            let group = UIView.HStack(spacing: 20, distribution: .fillProportionally)
+            let group = UIView.HStack(spacing: 20,alignment: .fill, distribution: .fillEqually)
             group.translatesAutoresizingMaskIntoConstraints = false
             group.isLayoutMarginsRelativeArrangement = true
            
@@ -58,8 +58,10 @@ struct RadioFieldStyle:Codable {
                 button.tag = index
                 
                 button.setTitle(label, for: .normal)
-                    button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right:8)
-//                    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 10)
+                    button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right:9)
+                    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
+                button.contentHorizontalAlignment = .left
+                button.contentVerticalAlignment = .center
                 
                 button.setTitleColor(UIColor.TextField.activeText, for: .normal)
                 button.setImage(UIImage(named: "nominee_unselected_radio"), for: .normal)

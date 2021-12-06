@@ -9,7 +9,8 @@ import UIKit
 
 class ListView: UIViewController {
     var allConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
-    
+    var doneAction:((_ text:String)->Void)?
+    var cancelAction:(()->Void)?
    
     var fileName:String?
     var showSearch:Bool = false {
@@ -19,13 +20,13 @@ class ListView: UIViewController {
         
     }
     lazy var listTable:SelfSizedTableView = {
-        let tv = SelfSizedTableView(frame: .zero, style: .grouped)
+        let tv = SelfSizedTableView(frame: .zero, style: .plain)
         tv.translatesAutoresizingMaskIntoConstraints = false
-        
+        tv.showsVerticalScrollIndicator = false
         tv.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9725490196, blue: 0.9764705882, alpha: 1)
         tv.separatorStyle = .singleLine
         tv.contentInsetAdjustmentBehavior = .never
-        tv.register(UITableViewCell.self, forCellReuseIdentifier:"ListCell")
+        tv.register(DefaultCell.self, forCellReuseIdentifier:"ListCell")
         tv.delegate = self
         tv.dataSource = self
         return tv
@@ -39,6 +40,8 @@ class ListView: UIViewController {
        
         self.view.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.4)
         
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(closePopup))
+//        self.view.addGestureRecognizer(gesture)
        
         setUpView()
         showSearch = false
@@ -48,6 +51,7 @@ class ListView: UIViewController {
        
         let wrapper = UIView()
         wrapper.translatesAutoresizingMaskIntoConstraints = false
+        
         wrapper.backgroundColor = .white
         wrapper.addSubview(listTable)
         self.view.addSubview(wrapper)
@@ -63,6 +67,14 @@ class ListView: UIViewController {
       
         
     }
+    
+   @objc func closePopup(){
+    if let action = cancelAction {
+        self.view.gestureRecognizers?.removeAll()
+        action()
+       
+    }
+    }
     func animateView(view:UIView){
         
         view.transform = CGAffineTransform(translationX: 0, y: 500)
@@ -76,8 +88,8 @@ class ListView: UIViewController {
     }
     func addConstraints(views:[String:UIView]){
         let metrics = [
-            "leftMargin": 0,
-            "rightMargin": 0,
+            "leftMargin": 12,
+            "rightMargin": 32,
             "topMargin":283,
             "bottomMargin":0
         ]
@@ -110,7 +122,7 @@ class ListView: UIViewController {
         let row = UIView.HStack(spacing: 0,alignment: .fill, distribution: .fill)
         row.translatesAutoresizingMaskIntoConstraints = false
         row.isLayoutMarginsRelativeArrangement = true
-        row.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 32, leading: 16, bottom: 32, trailing: 0)
+        row.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 38, leading: 22, bottom: 32, trailing: 25)
         row.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
         
         let label = UILabel()
@@ -127,6 +139,8 @@ class ListView: UIViewController {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Select Relationship"
+        label.font = UIFont(name: "OpenSans-Bold", size: 16)
+        label.textColor = UIColor(hex: "#474747FF")
         row.addArrangedSubview(label)
         
         
@@ -152,6 +166,16 @@ class ListView: UIViewController {
 //        self.listTable.setNeedsLayout()
 //            self.listTable.endUpdates()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        
+        if touch?.view == self.listTable {
+            print("inside table")
+        }else{
+            cancelAction?()
+        }
+    }
 }
 
 
@@ -160,7 +184,10 @@ extension ListView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        
+        if let action = doneAction,let relation = self.tableData?[indexPath.row] {
+            self.view.gestureRecognizers?.removeAll()
+            action(relation)
+        }
        
     }
     
@@ -169,7 +196,11 @@ extension ListView: UITableViewDelegate {
         
     }
     
-   
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: tableView.bounds.size.width, height: 60)))
@@ -199,7 +230,8 @@ extension ListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "DefaultCell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell") as? DefaultCell else { return UITableViewCell()}
+        
         let item = tableData?[indexPath.row]
         cell.textLabel?.text = item ?? ""
         return cell
@@ -207,3 +239,38 @@ extension ListView: UITableViewDataSource {
     
     
 }
+
+
+class DefaultCell: UITableViewCell {
+    
+    
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+//
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+      //  contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 16, left: 32, bottom: 16, right: 32))
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}
+

@@ -18,5 +18,7 @@ extension String {
         static let trashBinSubtitle = "#3D3D3DFF"
         static let breadcrumbTextColor = "#5D6373FF"
         static let breadcrumbActiveTextColor = "#2F2F2FFF"
+        
+        static let mainButton = "#3E0DF5FF"
     }
 }
