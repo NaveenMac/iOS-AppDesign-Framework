@@ -8,6 +8,60 @@
 import Foundation
 
 extension String {
+    var isValidName:Bool {
+        var returnVal: Bool = false
+        let pattern = "[a-z\\s]*"
+        
+        
+        do{
+             let range = NSRange(location: 0, length: self.utf16.count)
+            let regx = try NSRegularExpression(pattern: pattern,options: .caseInsensitive)
+            let results = regx.matches(in: self, range: range)
+            if results.count > 0 {
+                returnVal = true
+            }else {
+                returnVal = false
+            }
+                    
+                
+            }catch let error as NSError{
+               returnVal = false
+            }
+        return returnVal
+        
+    }
+    
+    var isValidAadhaar:Bool {
+        return false
+    }
+    
+    var isValidMobile:Bool {
+        return false
+    }
+    
+    var isValidEmail:Bool {
+        var returnVal: Bool = false
+        let pattern = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
+        
+        
+        do{
+             let range = NSRange(location: 0, length: self.utf16.count)
+            let regx = try NSRegularExpression(pattern: pattern)
+            let results = regx.matches(in: self, range: range)
+            if results.count > 0 {
+                returnVal = true
+            }else {
+                returnVal = false
+            }
+                    
+                
+            }catch let error as NSError{
+               returnVal = false
+            }
+        return returnVal
+    }
+    
+    
     struct ColorHex {
         static let  body = "#FAFAFAFF"
         static let filesHeader = "#4325D2FF"
