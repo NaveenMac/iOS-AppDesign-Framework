@@ -51,7 +51,7 @@ struct RadioFieldStyle:Codable {
             group.isLayoutMarginsRelativeArrangement = true
            
             
-            var index = tag
+            var index = tag*100
             for label in data {
                 index = index + 1
                 let button = UIButton()

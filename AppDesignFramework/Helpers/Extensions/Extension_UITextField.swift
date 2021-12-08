@@ -22,6 +22,7 @@ extension UITextField {
     
     static func getFloatingTextField(tag:Int, style:TextFieldStyle,callback:(()->Void)? = nil)->MDCBaseTextField{
         let textfield = MDCFilledTextField()
+        textfield.leadingEdgePaddingOverride = 0.0
         textfield.tag = tag
         if let title = style.title {
             textfield.label.text = title.text
@@ -30,10 +31,12 @@ extension UITextField {
         
         if let helperText = style.hint {
             textfield.leadingAssistiveLabel.text = helperText
-            textfield.setLeadingAssistiveLabelColor(UIColor.TextField.normalText, for: .normal)
-            textfield.setLeadingAssistiveLabelColor(UIColor.TextField.normalText, for: .editing)
+            textfield.setLeadingAssistiveLabelColor(UIColor.lightGray, for: .normal)
+            //textfield.setLeadingAssistiveLabelColor(UIColor.TextField.activieField, for: .editing)
         }
         
+        textfield.setFloatingLabelColor(UIColor.TextField.activieField, for: .editing)
+        textfield.setFloatingLabelColor(UIColor.TextField.normalText, for: .normal)
         if let icon = style.trailingIcon, let image = UIImage(named: icon) {
             let button = Button(type: .custom, attributes: { button in
                 button.setImage(image, for: .normal)
@@ -50,7 +53,7 @@ extension UITextField {
         textfield.setFilledBackgroundColor(.clear, for: .editing)
         textfield.returnKeyType = .next
         
-        textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
+        //textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
 //        textfield.setTextColor(UIColor.TextField.activeText, for: .normal)
 //        textfield.setTextColor(UIColor.TextField.activeText, for: .editing)
         
@@ -68,7 +71,16 @@ extension MDCFilledTextField {
     func setInputViewDatePicker(target: Any, selector: Selector) {
         // Create a UIDatePicker object and assign to inputView
         let screenWidth = UIScreen.main.bounds.width
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))//1
+        
+        let datePicker = UIDatePicker()//1
+        
+        let dateView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 358))
+            dateView.addSubview(datePicker)
+        
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.topAnchor.constraint(equalTo: dateView.topAnchor, constant: 8).isActive = true
+        datePicker.leadingAnchor.constraint(equalTo: dateView.leadingAnchor, constant: 16).isActive = true
+        datePicker.centerXAnchor.constraint(equalTo: dateView.centerXAnchor).isActive = true
         
         
         let maxDate = Date()
@@ -79,7 +91,7 @@ extension MDCFilledTextField {
         
         datePicker.datePickerMode = .date //2
         datePicker.maximumDate = maxDate
-        self.inputView = datePicker //3
+        self.inputView = dateView //3
         
         // Create a toolbar and assign it to inputAccessoryView
         let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0)) //4

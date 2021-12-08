@@ -14,6 +14,9 @@ struct Constants {
     static let DEFAULT_FILES = """
                              {"status":"success","data":[{"Name":"Folder 1","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"Folder 2","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"Folder 3","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"File 1","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"},{"Name":"File 2","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"},{"Name":"File 3","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"}]}
                              """
+    
+    static let USERNAME = "nvn.fullstack.dev"
+    static let MOBILENO = "9911017799"
 }
 
 

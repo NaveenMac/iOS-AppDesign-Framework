@@ -30,6 +30,7 @@ extension UIColor {
         static var activieField: UIColor {  return UIColor(hex: "#0000FFFF") ?? .gray}
         static var normalText: UIColor {  return UIColor(hex: "#777777FF") ?? .gray}
         static var activeText: UIColor {  return UIColor(hex: "#474747FF") ?? .gray}
+        
     }
     
     

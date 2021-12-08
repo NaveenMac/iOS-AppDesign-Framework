@@ -159,7 +159,7 @@ extension UIView {
           case Attributes.textColor.rawValue:
               label.textColor = UIColor(hex: property.value!)
           case Attributes.backgroundColor.rawValue:
-              label.textColor = UIColor(hex: property.value!)
+              label.backgroundColor = UIColor(hex: property.value!)
           case Attributes.fontWeight.rawValue:
               switch property.value! {
               case "700":
@@ -201,7 +201,9 @@ extension UIView {
                   default:
                       label.textAlignment = .justified
               }
-              
+          case Attributes.cornerRadius.rawValue:
+            label.layer.cornerRadius = CGFloat((property.value! as NSString).floatValue)
+            label.layer.masksToBounds = true
           case Attributes.width.rawValue:
               NSLayoutConstraint.activate([
                   label.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
@@ -226,8 +228,10 @@ extension UIView {
                   button.heightAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
               ])
           case Attributes.textColor.rawValue:
-              button.titleLabel?.textColor = UIColor(hex: property.value!)
+            button.setTitleColor(UIColor(hex: property.value!), for: .normal)
+              
           case Attributes.backgroundColor.rawValue:
+            
               button.backgroundColor = UIColor(hex: property.value!)
           case Attributes.fontSize.rawValue:
           button.titleLabel?.font = UIFont.appRegularFontWith(size:CGFloat((property.value! as NSString).floatValue))

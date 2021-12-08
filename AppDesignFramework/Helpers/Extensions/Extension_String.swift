@@ -9,13 +9,22 @@ import Foundation
 
 extension String {
     var isValidName:Bool {
+        guard self.count > 1 else { return false }
+
+            let predicateTest = NSPredicate(format: "SELF MATCHES %@", "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?))$")
+            return predicateTest.evaluate(with: self)
+        
+        
+    }
+    
+    var isValidAadhaar:Bool {
         var returnVal: Bool = false
-        let pattern = "[a-z\\s]*"
+        let pattern = "[2-9]{1}[0-9]{11}"
         
         
         do{
              let range = NSRange(location: 0, length: self.utf16.count)
-            let regx = try NSRegularExpression(pattern: pattern,options: .caseInsensitive)
+            let regx = try NSRegularExpression(pattern: pattern)
             let results = regx.matches(in: self, range: range)
             if results.count > 0 {
                 returnVal = true
@@ -28,15 +37,29 @@ extension String {
                returnVal = false
             }
         return returnVal
-        
-    }
-    
-    var isValidAadhaar:Bool {
-        return false
+       
     }
     
     var isValidMobile:Bool {
-        return false
+        var returnVal: Bool = false
+        let pattern = "[1-9]{1}[0-9]{9}"
+        
+        
+        do{
+             let range = NSRange(location: 0, length: self.utf16.count)
+            let regx = try NSRegularExpression(pattern: pattern)
+            let results = regx.matches(in: self, range: range)
+            if results.count > 0 {
+                returnVal = true
+            }else {
+                returnVal = false
+            }
+                    
+                
+            }catch let error as NSError{
+               returnVal = false
+            }
+        return returnVal
     }
     
     var isValidEmail:Bool {

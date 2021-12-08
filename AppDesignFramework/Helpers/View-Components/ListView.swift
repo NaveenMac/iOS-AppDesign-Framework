@@ -122,7 +122,7 @@ class ListView: UIViewController {
         let row = UIView.HStack(spacing: 0,alignment: .fill, distribution: .fill)
         row.translatesAutoresizingMaskIntoConstraints = false
         row.isLayoutMarginsRelativeArrangement = true
-        row.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 38, leading: 22, bottom: 32, trailing: 25)
+        row.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 38, leading: 22, bottom: 0, trailing: 25)
         row.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
         
         let label = UILabel()
@@ -154,7 +154,7 @@ class ListView: UIViewController {
         if showSearch {
             let searchBar = UITextField()
             searchBar.translatesAutoresizingMaskIntoConstraints = false
-            searchBar.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
             row1.addArrangedSubview(searchBar)
             
             col.addArrangedSubview(row1)
