@@ -17,6 +17,8 @@ extension Int {
         static var progressView: Int { return 222 }
         
         static var addFileButton: Int { return 1001 }
+        
+        static var spacerTag: Int { return 99 }
     }
     
     
