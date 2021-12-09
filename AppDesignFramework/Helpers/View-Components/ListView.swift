@@ -13,12 +13,7 @@ class ListView: UIViewController {
     var cancelAction:(()->Void)?
    
     var fileName:String?
-    var showSearch:Bool = false {
-        didSet{
-            setTableHeader()
-        }
-        
-    }
+    var showSearch:Bool = false
     lazy var listTable:SelfSizedTableView = {
         let tv = SelfSizedTableView(frame: .zero, style: .plain)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -33,10 +28,12 @@ class ListView: UIViewController {
     }()
     //var tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 300, height:   500))
     var tableData:[String]?
-   
+    var filteredData:[String]?
+    var searchBar: UISearchBar?
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.filteredData = tableData
        
         self.view.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.4)
         
@@ -44,7 +41,8 @@ class ListView: UIViewController {
 //        self.view.addGestureRecognizer(gesture)
        
         setUpView()
-        showSearch = false
+       // setTableHeader()
+        
     }
     
     func setUpView(){
@@ -113,9 +111,9 @@ class ListView: UIViewController {
         NSLayoutConstraint.activate(allConstraints)
     }
     
-    func setTableHeader(){
+    func setTableHeader()->UIView{
         
-        let col = UIView.VStack(spacing: 8, distribution: .fill)
+        let col = UIView.VStack(spacing: 8,alignment: .fill, distribution: .fill)
         col.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -133,9 +131,15 @@ class ListView: UIViewController {
             button.widthAnchor.constraint(equalToConstant: 60).isActive = true
             button.setImage(UIImage(named: "nominee_search"), for: .normal)
         }, action: { button in
-            //self.showSearch = true
+            self.showSearch = self.showSearch ? false : true
+            DispatchQueue.main.async {
+               // self.listTable.performBatchUpdates(nil, completion: nil)
+                self.listTable.reloadData()
+            }
+            
         })
        
+        button.isHidden = showSearch
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Select Relationship"
@@ -148,20 +152,24 @@ class ListView: UIViewController {
         row.addArrangedSubview(button)
         col.addArrangedSubview(row)
         
-        let row1 = UIView.VStack(spacing: 0, distribution: .fillProportionally)
+        let row1 = UIView.VStack(spacing: 0, alignment: .fill, distribution: .fill)
         row1.translatesAutoresizingMaskIntoConstraints = false
+       
+        searchBar = UISearchBar()
         
-        if showSearch {
-            let searchBar = UITextField()
-            searchBar.translatesAutoresizingMaskIntoConstraints = false
-            searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            row1.addArrangedSubview(searchBar)
-            
-            col.addArrangedSubview(row1)
-        }
+        searchBar?.delegate = self
         
+        searchBar?.isHidden = !showSearch
+       searchBar?.translatesAutoresizingMaskIntoConstraints = false
+        searchBar?.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        searchBar?.layer.cornerRadius = 26
+        searchBar?.layer.masksToBounds = true
+        searchBar?.barTintColor = UIColor.white
+        searchBar?.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+        row1.addArrangedSubview(searchBar!)
         
-        self.listTable.tableHeaderView = col
+        col.addArrangedSubview(row1)
+        return col
 //        self.listTable.beginUpdates()
 //        self.listTable.setNeedsLayout()
 //            self.listTable.endUpdates()
@@ -197,8 +205,7 @@ extension ListView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
+        let headerView = setTableHeader()
         return headerView
     }
     
@@ -226,18 +233,34 @@ extension ListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableData?.count ?? 0
+        return filteredData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell") as? DefaultCell else { return UITableViewCell()}
         
-        let item = tableData?[indexPath.row]
+        let item = filteredData?[indexPath.row]
         cell.textLabel?.text = item ?? ""
         return cell
     }
     
     
+}
+
+extension ListView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let text = searchBar.text {
+            if text.count == 0 {
+                self.filteredData = self.tableData
+            }else{
+                self.filteredData =  self.filteredData?.filter{ $0.lowercased().contains(text.lowercased())}
+            }
+            
+            
+        }
+        self.listTable.reloadData()
+       
+    }
 }
 
 
