@@ -29,6 +29,7 @@ class ListView: UIViewController {
     //var tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 300, height:   500))
     var tableData:[String]?
     var filteredData:[String]?
+    var selectedValue:String?
     var searchBar: UISearchBar?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +133,8 @@ class ListView: UIViewController {
             button.setImage(UIImage(named: "nominee_search"), for: .normal)
         }, action: { button in
             self.showSearch = self.showSearch ? false : true
+            
+           
             DispatchQueue.main.async {
                // self.listTable.performBatchUpdates(nil, completion: nil)
                 self.listTable.reloadData()
@@ -192,7 +195,7 @@ extension ListView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        if let action = doneAction,let relation = self.tableData?[indexPath.row] {
+        if let action = doneAction,let relation = self.filteredData?[indexPath.row] {
             self.view.gestureRecognizers?.removeAll()
             action(relation)
         }
@@ -241,6 +244,13 @@ extension ListView: UITableViewDataSource {
         
         let item = filteredData?[indexPath.row]
         cell.textLabel?.text = item ?? ""
+        cell.textLabel?.font = UIFont(name: "OpenSans-Regular", size: 16)
+        cell.textLabel?.textColor = UIColor(hex: "#474747FF")
+        if let active = self.selectedValue {
+            if active == item {
+                cell.accessoryType = .checkmark
+            }
+        }
         return cell
     }
     
