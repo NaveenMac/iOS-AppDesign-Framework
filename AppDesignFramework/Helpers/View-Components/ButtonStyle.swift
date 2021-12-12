@@ -9,6 +9,7 @@ import Foundation
 
 struct ButtonStyle:Codable {
     var text:String?
+    var image: ImageStyle?
     var tag:Int?
     var style:[Style]?
     init(tag:Int? = nil,text:String?=nil) {
@@ -22,6 +23,7 @@ struct ButtonStyle:Codable {
         case text = "name"
         case style = "style"
        case tag = "tag"
+        case image = "image"
     }
     
     init(from decoder: Decoder) throws {
@@ -29,7 +31,7 @@ struct ButtonStyle:Codable {
         text = try values.decodeIfPresent(String.self, forKey: .text)
         tag = try values.decodeIfPresent(Int.self, forKey: .tag)
         style = try values.decodeIfPresent([Style].self, forKey:.style)
-        
+        image = try values.decodeIfPresent(ImageStyle.self, forKey: .image)
         
     }
 }

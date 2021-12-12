@@ -27,4 +27,19 @@ extension Date{
         let date = dateFormat.date(from: value)
         return date
     }
+    
+    static func getDateStrFromOldFormat(input:String,oldFormat:String, newFormat:String)->String?{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = oldFormat
+        let dateObj = dateFormatter.date(from: input)
+        dateFormatter.dateFormat = newFormat
+        guard dateObj != nil else {
+            return nil
+        }
+        let finalDateStr:String = dateFormatter.string(from: dateObj!)
+        return finalDateStr
+    }
+    
+    
 }
