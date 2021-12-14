@@ -14,6 +14,7 @@ extension FileManager {
        case tmp
        case applicationSupport
        case files
+       case user
        
        // Return the base URL for the selected directory.
        var directoryURL: URL? {
@@ -54,7 +55,12 @@ extension FileManager {
                                 in: .userDomainMask,
                                 appropriateFor: nil,
                                 create: false).appendingPathComponent(Constants.FILE_DIR)
-            
+          case .user:
+          baseDirectory = try?
+             fileManager.url(for: .libraryDirectory,
+                             in: .userDomainMask,
+                             appropriateFor: nil,
+                             create: false).appendingPathComponent(Constants.USER_DIR)
           }
           
           return baseDirectory
@@ -99,6 +105,21 @@ extension FileManager {
             let fileURL = baseDirectory.appendingPathComponent(filename)
             return FileManager.default.fileExists(atPath: fileURL.path)
         }
+        
+        func checkForDirectory()  throws ->Bool{
+           let defaultManager = FileManager.default
+            if let filesDirUrl = self.directoryURL {
+               if !defaultManager.fileExists(atPath: filesDirUrl.path){
+                   try defaultManager.createDirectory(atPath: filesDirUrl.path, withIntermediateDirectories: false, attributes: nil)
+                   return true
+               }else{
+                   return true
+               }
+           }
+           return false
+           
+        }
+        
     }
 
     
@@ -140,6 +161,8 @@ extension FileManager {
         return false
         
      }
+    
+    
     
     func isFileExistsInDrive(name:String)->Bool{
         guard let fileUrl =  FileManager.App.files.getFileUrl(filename: name) else {

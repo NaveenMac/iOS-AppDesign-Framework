@@ -235,15 +235,35 @@ extension UIView {
               button.backgroundColor = UIColor(hex: property.value!)
           case Attributes.fontSize.rawValue:
           button.titleLabel?.font = UIFont.appRegularFontWith(size:CGFloat((property.value! as NSString).floatValue))
-          case Attributes.width.rawValue:
-              NSLayoutConstraint.activate([
-                  button.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
-              ])
-          case Attributes.cornerRadius.rawValue:
+           case Attributes.cornerRadius.rawValue:
               button.layer.cornerRadius = CGFloat((property.value! as NSString).floatValue)
               button.layer.masksToBounds = true
               
-             
+          case Attributes.titleEdgeInsets.rawValue:
+            if let value = property.value as NSString?{
+                let arr = value.components(separatedBy: ",") as [NSString]
+                    
+                let leading = CGFloat(arr[0].floatValue)
+                    let top = CGFloat(arr[1].floatValue)
+                  let trailing = CGFloat(arr[2].floatValue)
+                let bottom = CGFloat(arr[3].floatValue)
+                button.titleEdgeInsets = UIEdgeInsets(top: top, left: leading, bottom: bottom, right: trailing)
+                    
+                }
+          case Attributes.imageEdgeInsets.rawValue:
+            if let value = property.value as NSString? {
+                let arr = value.components(separatedBy: ",") as [NSString]
+                    
+                let leading = CGFloat(arr[0].floatValue)
+                    let top = CGFloat(arr[1].floatValue)
+                  let trailing = CGFloat(arr[2].floatValue)
+                let bottom = CGFloat(arr[3].floatValue)
+                button.imageEdgeInsets = UIEdgeInsets(top: top, left: leading, bottom: bottom, right: trailing)
+                    
+                }
+              
+            
+            
           default:
               print("NA")
           }

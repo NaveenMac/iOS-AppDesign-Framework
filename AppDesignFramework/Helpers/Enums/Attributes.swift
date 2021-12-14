@@ -55,6 +55,8 @@ enum Attributes:String {
     case defaultBackgroundColor = "defaultBackgroundColor"
     case disabledBackgroundColor = "disabledBackgroundColor"
    case visibility = "visibility"
+    case titleEdgeInsets = "titleEdgeInsets"
+    case imageEdgeInsets = "imageEdgeInsets"
 }
 
 
