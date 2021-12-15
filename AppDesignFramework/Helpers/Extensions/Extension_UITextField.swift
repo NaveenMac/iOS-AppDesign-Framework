@@ -36,10 +36,10 @@ extension UITextField {
         }
         
         textfield.setFloatingLabelColor(UIColor.TextField.activieField, for: .editing)
-        textfield.setFloatingLabelColor(UIColor.TextField.normalText, for: .normal)
+        textfield.setFloatingLabelColor(UIColor.TextField.activeText, for: .normal)
         
         textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
-        textfield.setNormalLabelColor(UIColor.TextField.activeText, for: .normal)
+        textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .editing)
         if let icon = style.trailingIcon, let image = UIImage(named: icon) {
             let button = Button(type: .custom, attributes: { button in
                 button.setImage(image, for: .normal)
