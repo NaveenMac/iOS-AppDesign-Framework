@@ -34,7 +34,7 @@ extension UITextField {
             textfield.setLeadingAssistiveLabelColor(UIColor.lightGray, for: .normal)
             //textfield.setLeadingAssistiveLabelColor(UIColor.TextField.activieField, for: .editing)
         }
-        
+        textfield.setFilledBackgroundColor(.clear, for: .disabled)
         textfield.setFloatingLabelColor(UIColor.TextField.activieField, for: .editing)
         textfield.setFloatingLabelColor(UIColor.TextField.activeText, for: .normal)
         
@@ -62,6 +62,7 @@ extension UITextField {
         
         textfield.setUnderlineColor(UIColor.TextField.inactivieField, for: .normal)
         textfield.setUnderlineColor(UIColor.TextField.activieField, for: .editing)
+        textfield.setUnderlineColor(UIColor.TextField.inactivieField, for: .disabled)
         return textfield
     }
     
