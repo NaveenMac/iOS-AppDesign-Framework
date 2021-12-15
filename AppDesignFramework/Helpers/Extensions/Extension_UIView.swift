@@ -208,6 +208,10 @@ extension UIView {
               NSLayoutConstraint.activate([
                   label.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
               ])
+          case Attributes.height.rawValue:
+              NSLayoutConstraint.activate([
+                  label.heightAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+              ])
               
              
           default:
