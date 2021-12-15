@@ -38,8 +38,8 @@ extension UITextField {
         textfield.setFloatingLabelColor(UIColor.TextField.activieField, for: .editing)
         textfield.setFloatingLabelColor(UIColor.TextField.activeText, for: .normal)
         
-        textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
-        textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .editing)
+//        textfield.setNormalLabelColor(.red, for: .normal)
+//        textfield.setNormalLabelColor(.red, for: .editing)
         if let icon = style.trailingIcon, let image = UIImage(named: icon) {
             let button = Button(type: .custom, attributes: { button in
                 button.setImage(image, for: .normal)
@@ -57,8 +57,8 @@ extension UITextField {
         textfield.returnKeyType = .next
         
         //textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
-//        textfield.setTextColor(UIColor.TextField.activeText, for: .normal)
-//        textfield.setTextColor(UIColor.TextField.activeText, for: .editing)
+        textfield.setTextColor(UIColor(hex: "#777777FF")!, for: .normal)
+        textfield.setTextColor(UIColor.TextField.activeText, for: .editing)
         
         textfield.setUnderlineColor(UIColor.TextField.inactivieField, for: .normal)
         textfield.setUnderlineColor(UIColor.TextField.activieField, for: .editing)
