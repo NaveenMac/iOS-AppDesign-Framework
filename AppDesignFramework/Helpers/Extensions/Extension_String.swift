@@ -98,4 +98,8 @@ extension String {
         
         static let mainButton = "#3E0DF5FF"
     }
+    
+    func localized()->String{
+        return self
+    }
 }
