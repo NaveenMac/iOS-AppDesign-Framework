@@ -160,18 +160,6 @@ extension UIView {
               label.textColor = UIColor(hex: property.value!)
           case Attributes.backgroundColor.rawValue:
               label.backgroundColor = UIColor(hex: property.value!)
-          case Attributes.fontWeight.rawValue:
-              switch property.value! {
-              case "700":
-                  label.font = UIFont.systemFont(ofSize: label.font!.pointSize, weight: .bold)
-                  
-              case "400":
-                  label.font = UIFont.systemFont(ofSize: label.font!.pointSize, weight: .regular)
-              default:
-                  label.font = UIFont.systemFont(ofSize: label.font!.pointSize, weight: .medium)
-              }
-              
-              
           case Attributes.fontFamily.rawValue:
 
               if let font =  UIFont(name: property.value!, size: label.font.pointSize) {
