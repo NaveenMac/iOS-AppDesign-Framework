@@ -34,12 +34,12 @@ extension UITextField {
             textfield.setLeadingAssistiveLabelColor(UIColor.lightGray, for: .normal)
             //textfield.setLeadingAssistiveLabelColor(UIColor.TextField.activieField, for: .editing)
         }
-        
+        textfield.setFilledBackgroundColor(.clear, for: .disabled)
         textfield.setFloatingLabelColor(UIColor.TextField.activieField, for: .editing)
         textfield.setFloatingLabelColor(UIColor.TextField.activeText, for: .normal)
         
-        textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
-        textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .editing)
+//        textfield.setNormalLabelColor(.red, for: .normal)
+//        textfield.setNormalLabelColor(.red, for: .editing)
         if let icon = style.trailingIcon, let image = UIImage(named: icon) {
             let button = Button(type: .custom, attributes: { button in
                 button.setImage(image, for: .normal)
@@ -57,11 +57,12 @@ extension UITextField {
         textfield.returnKeyType = .next
         
         //textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
-//        textfield.setTextColor(UIColor.TextField.activeText, for: .normal)
-//        textfield.setTextColor(UIColor.TextField.activeText, for: .editing)
+        textfield.setTextColor(UIColor(hex: "#777777FF")!, for: .normal)
+        textfield.setTextColor(UIColor.TextField.activeText, for: .editing)
         
         textfield.setUnderlineColor(UIColor.TextField.inactivieField, for: .normal)
         textfield.setUnderlineColor(UIColor.TextField.activieField, for: .editing)
+        textfield.setUnderlineColor(UIColor.TextField.inactivieField, for: .disabled)
         return textfield
     }
     
@@ -72,15 +73,38 @@ extension UITextField {
 
             let toolbar: UIToolbar = UIToolbar()
             toolbar.barStyle = .default
-            toolbar.items = [
-                UIBarButtonItem(title: "Cancel", style: .plain, target: onCancel.target, action: onCancel.action),
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
-                UIBarButtonItem(title: "Done", style: .done, target: onDone.target, action: onDone.action)
-            ]
+        toolbar.items = [
+            UIBarButtonItem(title: "Cancel", style: .plain, target: onCancel.target, action: onCancel.action),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            
+            UIBarButtonItem(title: "Done", style: .done, target: onDone.target, action: onDone.action)
+        ]
+            
             toolbar.sizeToFit()
 
             self.inputAccessoryView = toolbar
         }
+    
+    func addNextCancelToolbar(onNext: (target: Any, action: Selector)? = nil, onCancel: (target: Any, action: Selector)? = nil) {
+            let onCancel = onCancel ?? (target: self, action: #selector(cancelButtonTapped))
+            let onNext = onNext ?? (target: self, action: #selector(doneButtonTapped))
+
+            let toolbar: UIToolbar = UIToolbar()
+            toolbar.barStyle = .default
+        let next = UIBarButtonItem(title: "Next", style: .done, target: onNext.target, action: onNext.action)
+        next.tag = self.tag
+        toolbar.items = [
+            UIBarButtonItem(title: "Cancel", style: .plain, target: onCancel.target, action: onCancel.action),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            next
+            
+        ]
+            
+            toolbar.sizeToFit()
+
+            self.inputAccessoryView = toolbar
+        }
+    
     @objc func doneButtonTapped() { self.resignFirstResponder() }
     @objc func cancelButtonTapped() { self.resignFirstResponder() }
     
