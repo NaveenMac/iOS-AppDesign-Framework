@@ -128,4 +128,30 @@ extension UIViewController {
         animator.startAnimation()
     }
     
+    func animateTextField(textField: UITextField, up: Bool) {
+        
+        let movementDistance:CGFloat = -130
+        let movementDuration: Double = 0.3
+        
+        var movement:CGFloat = 0
+        if up {
+            movement = movementDistance
+        } else {
+            movement = -movementDistance
+        }
+        
+        UIView.animate(withDuration: movementDuration, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        }, completion: nil)
+    }
+    
+    @objc func goToNextField(sender:UIBarButtonItem){
+        self.view.endEditing(true)
+      let tag = sender.tag
+        
+        if let textfield = self.view.viewWithTag(tag+1) as? UITextField{
+            textfield.becomeFirstResponder()
+        }
+    }
+    
 }

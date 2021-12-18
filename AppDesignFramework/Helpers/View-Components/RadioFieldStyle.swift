@@ -46,7 +46,7 @@ struct RadioFieldStyle:Codable {
         stack.addArrangedSubview(title)
         
         if let data = style.list {
-            let group = UIView.HStack(spacing: 20,alignment: .fill, distribution: .fillEqually)
+            let group = UIView.HStack(spacing: 40,alignment: .leading, distribution: .fillProportionally)
             group.translatesAutoresizingMaskIntoConstraints = false
             group.isLayoutMarginsRelativeArrangement = true
            
@@ -59,7 +59,7 @@ struct RadioFieldStyle:Codable {
                 
                 button.setTitle(label, for: .normal)
                     button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right:9)
-                    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
+                    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
                 button.contentHorizontalAlignment = .left
                 button.contentVerticalAlignment = .center
                 

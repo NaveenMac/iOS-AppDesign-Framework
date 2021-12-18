@@ -29,14 +29,10 @@ extension UITextField {
         
         }
         
-        if let helperText = style.hint {
-            textfield.leadingAssistiveLabel.text = helperText
-            textfield.setLeadingAssistiveLabelColor(UIColor.lightGray, for: .normal)
-            //textfield.setLeadingAssistiveLabelColor(UIColor.TextField.activieField, for: .editing)
-        }
+       
         textfield.setFilledBackgroundColor(.clear, for: .disabled)
         textfield.setFloatingLabelColor(UIColor.TextField.activieField, for: .editing)
-        textfield.setFloatingLabelColor(UIColor.TextField.activeText, for: .normal)
+        textfield.setFloatingLabelColor(UIColor(hex: "#777777FF") ?? .clear, for: .normal)
         
 //        textfield.setNormalLabelColor(.red, for: .normal)
 //        textfield.setNormalLabelColor(.red, for: .editing)
@@ -56,9 +52,11 @@ extension UITextField {
         textfield.setFilledBackgroundColor(.clear, for: .editing)
         textfield.returnKeyType = .next
         
-        //textfield.setNormalLabelColor(UIColor.TextField.normalText, for: .normal)
+        textfield.setNormalLabelColor(UIColor(hex: "#777777FF") ?? .lightGray, for: .normal)
         textfield.setTextColor(UIColor(hex: "#777777FF")!, for: .normal)
         textfield.setTextColor(UIColor.TextField.activeText, for: .editing)
+        
+        textfield.setLeadingAssistiveLabelColor(UIColor(hex: "#777777FF") ?? .lightGray, for: .normal)
         
         textfield.setUnderlineColor(UIColor.TextField.inactivieField, for: .normal)
         textfield.setUnderlineColor(UIColor.TextField.activieField, for: .editing)
