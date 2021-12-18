@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImage {
-    static let curveImage = UIImage(named: "drive_transparent-curve")
+    static let curveImage = UIImage(named: "drive_transparent_curve")
     static let filesHeader = UIImage(named: "drive_files_background")
     static let trashBin = UIImage(named: "drive_empty_drive")
     
