@@ -14,4 +14,32 @@ extension Date{
         let now = df.string(from: self)
         return now
      }
+    func getFormattedDate(format:String)->String{
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = format
+        return dateFormat.string(from: self)
+    }
+    
+    static func getFormattedDate(value:String, format:String)->Date?{
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = format
+        
+        let date = dateFormat.date(from: value)
+        return date
+    }
+    
+    static func getDateStrFromOldFormat(input:String,oldFormat:String, newFormat:String)->String?{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = oldFormat
+        let dateObj = dateFormatter.date(from: input)
+        dateFormatter.dateFormat = newFormat
+        guard dateObj != nil else {
+            return nil
+        }
+        let finalDateStr:String = dateFormatter.string(from: dateObj!)
+        return finalDateStr
+    }
+    
+    
 }

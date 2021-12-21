@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 extension UIView {
     
     func addActivityIndicator(size:CGSize = CGSize(width: 100, height: 100)) -> UIActivityIndicatorView{
@@ -158,19 +159,7 @@ extension UIView {
           case Attributes.textColor.rawValue:
               label.textColor = UIColor(hex: property.value!)
           case Attributes.backgroundColor.rawValue:
-              label.textColor = UIColor(hex: property.value!)
-          case Attributes.fontWeight.rawValue:
-              switch property.value! {
-              case "700":
-                  label.font = UIFont.systemFont(ofSize: label.font!.pointSize, weight: .bold)
-                  
-              case "400":
-                  label.font = UIFont.systemFont(ofSize: label.font!.pointSize, weight: .regular)
-              default:
-                  label.font = UIFont.systemFont(ofSize: label.font!.pointSize, weight: .medium)
-              }
-              
-              
+              label.backgroundColor = UIColor(hex: property.value!)
           case Attributes.fontFamily.rawValue:
 
               if let font =  UIFont(name: property.value!, size: label.font.pointSize) {
@@ -200,10 +189,16 @@ extension UIView {
                   default:
                       label.textAlignment = .justified
               }
-              
+          case Attributes.cornerRadius.rawValue:
+            label.layer.cornerRadius = CGFloat((property.value! as NSString).floatValue)
+            label.layer.masksToBounds = true
           case Attributes.width.rawValue:
               NSLayoutConstraint.activate([
                   label.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+              ])
+          case Attributes.height.rawValue:
+              NSLayoutConstraint.activate([
+                  label.heightAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
               ])
               
              
@@ -225,27 +220,81 @@ extension UIView {
                   button.heightAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
               ])
           case Attributes.textColor.rawValue:
-              button.titleLabel?.textColor = UIColor(hex: property.value!)
+            button.setTitleColor(UIColor(hex: property.value!), for: .normal)
+              
           case Attributes.backgroundColor.rawValue:
+            
               button.backgroundColor = UIColor(hex: property.value!)
           case Attributes.fontSize.rawValue:
           button.titleLabel?.font = UIFont.appRegularFontWith(size:CGFloat((property.value! as NSString).floatValue))
-          case Attributes.width.rawValue:
-              NSLayoutConstraint.activate([
-                  button.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
-              ])
-          case Attributes.cornerRadius.rawValue:
+           case Attributes.cornerRadius.rawValue:
               button.layer.cornerRadius = CGFloat((property.value! as NSString).floatValue)
               button.layer.masksToBounds = true
               
-             
+          case Attributes.titleEdgeInsets.rawValue:
+            if let value = property.value as NSString?{
+                let arr = value.components(separatedBy: ",") as [NSString]
+                    
+                let leading = CGFloat(arr[0].floatValue)
+                    let top = CGFloat(arr[1].floatValue)
+                  let trailing = CGFloat(arr[2].floatValue)
+                let bottom = CGFloat(arr[3].floatValue)
+                button.titleEdgeInsets = UIEdgeInsets(top: top, left: leading, bottom: bottom, right: trailing)
+                    
+                }
+          case Attributes.imageEdgeInsets.rawValue:
+            if let value = property.value as NSString? {
+                let arr = value.components(separatedBy: ",") as [NSString]
+                    
+                let leading = CGFloat(arr[0].floatValue)
+                    let top = CGFloat(arr[1].floatValue)
+                  let trailing = CGFloat(arr[2].floatValue)
+                let bottom = CGFloat(arr[3].floatValue)
+                button.imageEdgeInsets = UIEdgeInsets(top: top, left: leading, bottom: bottom, right: trailing)
+                    
+                }
+              
+            
+            
           default:
               print("NA")
           }
       }
   }
   
-  
+    static func setButtonStyle(button:Button, style:[Style]){
+       for property in style {
+           switch property.attr {
+           case Attributes.width.rawValue:
+               NSLayoutConstraint.activate([
+                   button.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+               ])
+           case Attributes.height.rawValue:
+               NSLayoutConstraint.activate([
+                   button.heightAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+               ])
+           case Attributes.textColor.rawValue:
+               button.titleLabel?.textColor = UIColor(hex: property.value!)
+           case Attributes.defaultBackgroundColor.rawValue:
+            button.setBackgroundColor(UIColor(hex: property.value!), for: .normal)
+           case Attributes.disabledBackgroundColor.rawValue:
+            button.setBackgroundColor(UIColor(hex: property.value!), for: .disabled)
+           case Attributes.fontSize.rawValue:
+           button.titleLabel?.font = UIFont.appRegularFontWith(size:CGFloat((property.value! as NSString).floatValue))
+           case Attributes.width.rawValue:
+               NSLayoutConstraint.activate([
+                   button.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
+               ])
+           case Attributes.cornerRadius.rawValue:
+               button.layer.cornerRadius = CGFloat((property.value! as NSString).floatValue)
+               button.layer.masksToBounds = true
+               
+              
+           default:
+               print("NA")
+           }
+       }
+   }
    static func setImageViewStyle(image:UIImageView, style:[Style]){
       for property in style {
           switch property.attr {
@@ -546,6 +595,14 @@ extension UIView {
             rotation.isCumulative = true
             rotation.repeatCount = Float.greatestFiniteMagnitude
             self.layer.add(rotation, forKey: "rotationAnimation")
+        }
+    
+    
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+            let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            layer.mask = mask
         }
     
 }

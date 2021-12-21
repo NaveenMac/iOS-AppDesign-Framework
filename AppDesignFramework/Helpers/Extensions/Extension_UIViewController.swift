@@ -94,4 +94,64 @@ extension UIViewController {
         
     }
     
+    func animateWithKeyboard(
+        notification: NSNotification,
+        animations: ((_ keyboardFrame: CGRect) -> Void)?
+    ) {
+        // Extract the duration of the keyboard animation
+        let durationKey = UIResponder.keyboardAnimationDurationUserInfoKey
+        let duration = notification.userInfo![durationKey] as! Double
+        
+        // Extract the final frame of the keyboard
+        let frameKey = UIResponder.keyboardFrameEndUserInfoKey
+        let keyboardFrameValue = notification.userInfo![frameKey] as! NSValue
+        
+        // Extract the curve of the iOS keyboard animation
+        let curveKey = UIResponder.keyboardAnimationCurveUserInfoKey
+        let curveValue = notification.userInfo![curveKey] as! Int
+        let curve = UIView.AnimationCurve(rawValue: curveValue)!
+
+        // Create a property animator to manage the animation
+        let animator = UIViewPropertyAnimator(
+            duration: duration,
+            curve: curve
+        ) {
+            // Perform the necessary animation layout updates
+            animations?(keyboardFrameValue.cgRectValue)
+            
+            // Required to trigger NSLayoutConstraint changes
+            // to animate
+            self.view?.layoutIfNeeded()
+        }
+        
+        // Start the animation
+        animator.startAnimation()
+    }
+    
+    func animateTextField(textField: UITextField, up: Bool) {
+        
+        let movementDistance:CGFloat = -130
+        let movementDuration: Double = 0.3
+        
+        var movement:CGFloat = 0
+        if up {
+            movement = movementDistance
+        } else {
+            movement = -movementDistance
+        }
+        
+        UIView.animate(withDuration: movementDuration, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        }, completion: nil)
+    }
+    
+    @objc func goToNextField(sender:UIBarButtonItem){
+        self.view.endEditing(true)
+      let tag = sender.tag
+        
+        if let textfield = self.view.viewWithTag(tag+1) as? UITextField{
+            textfield.becomeFirstResponder()
+        }
+    }
+    
 }

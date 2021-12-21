@@ -15,7 +15,7 @@ extension UIColor {
         static var healthFolder : UIColor { return UIColor(hex: String.ColorHex.healthFolder) ?? .clear}
         static var educationFolder : UIColor { return UIColor(hex: String.ColorHex.educationFolder) ?? .clear}
         static var filesHeader : UIColor { return UIColor(hex: String.ColorHex.filesHeader) ?? .clear}
-        
+        static var actionButton: UIColor { return UIColor(hex: String.ColorHex.mainButton) ?? .clear}
         
     }
     
@@ -23,6 +23,14 @@ extension UIColor {
         static var breadcrumbTextColor: UIColor { return UIColor(hex: String.ColorHex.breadcrumbTextColor) ?? .clear}
         
         static var breadcrumbActiveTextColor: UIColor {return UIColor(hex: String.ColorHex.breadcrumbActiveTextColor) ?? .clear}
+    }
+    
+    struct TextField {
+        static var inactivieField: UIColor {  return UIColor(hex: "#D8D8D8FF") ?? .gray}
+        static var activieField: UIColor {  return UIColor(hex: "#0000FFFF") ?? .gray}
+        static var normalText: UIColor {  return UIColor(hex: "#777777FF") ?? .gray}
+        static var activeText: UIColor {  return UIColor(hex: "#474747FF") ?? .gray}
+        
     }
     
     
