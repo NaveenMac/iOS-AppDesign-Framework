@@ -29,7 +29,7 @@ extension UITextField {
         
         }
         
-       
+        
         textfield.setFilledBackgroundColor(.clear, for: .disabled)
         textfield.setFloatingLabelColor(UIColor.TextField.activieField, for: .editing)
         textfield.setFloatingLabelColor(UIColor(hex: "#777777FF") ?? .clear, for: .normal)
@@ -53,7 +53,7 @@ extension UITextField {
         textfield.returnKeyType = .next
         
         textfield.setNormalLabelColor(UIColor(hex: "#777777FF") ?? .lightGray, for: .normal)
-        textfield.setTextColor(UIColor(hex: "#777777FF")!, for: .normal)
+        textfield.setTextColor(UIColor.TextField.activeText, for: .normal)
         textfield.setTextColor(UIColor.TextField.activeText, for: .editing)
         
         textfield.setLeadingAssistiveLabelColor(UIColor(hex: "#777777FF") ?? .lightGray, for: .normal)
