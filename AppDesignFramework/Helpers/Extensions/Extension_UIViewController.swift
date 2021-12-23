@@ -162,7 +162,13 @@ extension UIViewController {
         self.navigationController?.navigationBar.backgroundColor = color
         if #available(iOS 13.0, *) {
             let app = UIApplication.shared
-            let statusBarHeight: CGFloat = app.statusBarFrame.size.height+20
+            var statusBarHeight: CGFloat
+            if UIDevice().hasNotch {
+               statusBarHeight = app.statusBarFrame.size.height+20
+            }else{
+                statusBarHeight = app.statusBarFrame.size.height
+            }
+            
             
             let statusbarView = UIView()
             statusbarView.backgroundColor = color
