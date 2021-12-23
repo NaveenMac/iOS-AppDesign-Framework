@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
         UINavigationBar.appearance().tintColor = UIColor.Background.filesHeader
-        UINavigationBar.appearance().isTranslucent = true
+       // UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().backIndicatorImage = UIImage(named: "drive_ic_blue_back")
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "drive_ic_blue_back")
         UINavigationBar.appearance().barTintColor = UIColor.Background.body
