@@ -12,15 +12,17 @@ class ListView: UIViewController {
     var doneAction:((_ text:String)->Void)?
     var cancelAction:(()->Void)?
    
-    var fileName:String?
+    var listTitle:String?
     var showSearch:Bool = false
     lazy var listTable:SelfSizedTableView = {
         let tv = SelfSizedTableView(frame: .zero, style: .plain)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.showsVerticalScrollIndicator = false
+        tv.contentInset = .zero
+        
         tv.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9725490196, blue: 0.9764705882, alpha: 1)
         tv.separatorStyle = .singleLine
-        tv.contentInsetAdjustmentBehavior = .never
+        //tv.contentInsetAdjustmentBehavior = .never
         tv.register(DefaultCell.self, forCellReuseIdentifier:"ListCell")
         tv.delegate = self
         tv.dataSource = self
@@ -30,7 +32,30 @@ class ListView: UIViewController {
     var tableData:[String]?
     var filteredData:[String]?
     var selectedValue:String?
-    var searchBar: UISearchBar?
+    var searchBar: UISearchBar = {
+        let search = UISearchBar()
+        
+        search.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        search.backgroundImage = UIImage()
+        search.translatesAutoresizingMaskIntoConstraints = false
+        search.tintColor = .white
+        search.barTintColor = .blue
+        search.showsCancelButton = true
+        search.layer.cornerRadius = 40
+        search.layer.masksToBounds = true
+        //search.barTintColor = .blue
+        
+        //search.updateHeight(height: 52)
+        search.tintColor = UIColor(hex: "#474747FF")
+        return search
+    }()
+    var searchButton: UIButton = {
+           let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            button.setImage(UIImage(named: "nominee_search"), for: .normal)
+            return button
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,16 +73,31 @@ class ListView: UIViewController {
     
     func setUpView(){
        
-        let wrapper = UIView()
+        searchButton.addTarget(self, action: #selector(self.searchButtonTapped(sender:)), for: .touchUpInside)
+        searchButton.isHidden = showSearch
+        
+        let wrapper = UIView.VStack(spacing: 5,alignment: .fill, distribution: .fill)
         wrapper.translatesAutoresizingMaskIntoConstraints = false
         
         wrapper.backgroundColor = .white
-        wrapper.addSubview(listTable)
+        
+        let titleView = self.getTableTitleSearch()
+        wrapper.addArrangedSubview(titleView)
+        wrapper.addArrangedSubview(searchBar)
+        wrapper.addArrangedSubview(listTable)
+        wrapper.layer.cornerRadius = 20
+        wrapper.layer.masksToBounds = true
+        //wrapper.roundCorners(corners: [.topLeft,.topRight], radius: 20)
         self.view.addSubview(wrapper)
+        
         listTable.backgroundColor = .white
         
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.delegate = self
         
-        let views = [ "table": listTable, "wrapper":wrapper ]
+        searchBar.isHidden = !showSearch
+        
+        let views = [ "searchBar":searchBar,"searchTitle":titleView, "table": listTable, "wrapper":wrapper ]
 
 
         addConstraints(views: views)
@@ -82,12 +122,51 @@ class ListView: UIViewController {
         initialSpringVelocity: 0.5, options: [], animations: {
             view.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: {_ in
-            view.roundCorners(corners: [.topLeft,.topRight], radius: 20)
+            
             })
+    }
+    
+    @objc func searchButtonTapped(sender: UIButton) {
+        showSearch = showSearch ? false : true
+        self.searchBar.isHidden = false
+        sender.isHidden = true
+        DispatchQueue.main.async {
+           // self.listTable.performBatchUpdates(nil, completion: nil)
+            self.listTable.reloadData()
+        }
+    }
+    func getTableTitleSearch()->UIStackView{
+        let row = UIView.HStack(spacing: 0,alignment: .fill, distribution: .fill)
+        row.translatesAutoresizingMaskIntoConstraints = false
+        row.isLayoutMarginsRelativeArrangement = true
+        row.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        row.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 38, leading: 0, bottom: 0, trailing: 32)
+        row.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
+        
+        let label = UILabel()
+        
+        
+       
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        if let title = self.listTitle {
+            label.text = title
+        }else{
+            label.text = "Select".localized()
+        }
+        
+        label.font = UIFont(name: "OpenSans-Bold", size: 16)
+        label.textColor = UIColor(hex: "#474747FF")
+        row.addArrangedSubview(label)
+        
+        
+        
+        row.addArrangedSubview(searchButton)
+        return row
     }
     func addConstraints(views:[String:UIView]){
         let metrics = [
-            "leftMargin": 12,
+            "leftMargin": 32,
             "rightMargin": 32,
             "topMargin":283,
             "bottomMargin":0
@@ -98,84 +177,20 @@ class ListView: UIViewController {
         let wrapperViewHorizontal = NSLayoutConstraint.constraints(withVisualFormat: "H:|[wrapper]|", options: [], metrics: metrics, views: views)
         allConstraints += wrapperViewHorizontal
 
-        let wrapperViewVertical = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(topMargin)-[wrapper]|", options:.alignAllCenterY, metrics: metrics, views: views)
+        let wrapperViewVertical = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(topMargin)-[wrapper]|", options:[], metrics: metrics, views: views)
         allConstraints += wrapperViewVertical
         
-        let tableViewHorizontal = NSLayoutConstraint.constraints(withVisualFormat: "H:|-leftMargin-[table]-rightMargin-|", options: [], metrics: metrics, views: views)
-        allConstraints += tableViewHorizontal
-
-        let tableViewViewVertical = NSLayoutConstraint.constraints(withVisualFormat: "V:|-[table]|", options:.alignAllCenterY, metrics: metrics, views: views)
-        allConstraints += tableViewViewVertical
-
-
+        let titleHorizontal = NSLayoutConstraint.constraints(withVisualFormat: "H:|-leftMargin-[searchTitle]-rightMargin-|", options: [], metrics: metrics, views: views)
+        allConstraints += titleHorizontal
+        
+        let barHorizontal = NSLayoutConstraint.constraints(withVisualFormat: "H:|-leftMargin-[searchBar]-rightMargin-|", options: [], metrics: metrics, views: views)
+        allConstraints += barHorizontal
+        
+        
+        let searchHorizontal = NSLayoutConstraint.constraints(withVisualFormat: "H:|-18-[table]-rightMargin-|", options: [], metrics: metrics, views: views)
+        allConstraints += searchHorizontal
 
         NSLayoutConstraint.activate(allConstraints)
-    }
-    
-    func setTableHeader()->UIView{
-        
-        let col = UIView.VStack(spacing: 8,alignment: .fill, distribution: .fill)
-        col.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let row = UIView.HStack(spacing: 0,alignment: .fill, distribution: .fill)
-        row.translatesAutoresizingMaskIntoConstraints = false
-        row.isLayoutMarginsRelativeArrangement = true
-        row.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 38, leading: 22, bottom: 0, trailing: 25)
-        row.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
-        
-        let label = UILabel()
-        
-        
-        let button = Button(type: .custom, attributes: { button in
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.widthAnchor.constraint(equalToConstant: 60).isActive = true
-            button.setImage(UIImage(named: "nominee_search"), for: .normal)
-        }, action: { button in
-            self.showSearch = self.showSearch ? false : true
-            
-           
-            DispatchQueue.main.async {
-               // self.listTable.performBatchUpdates(nil, completion: nil)
-                self.listTable.reloadData()
-            }
-            
-        })
-       
-        button.isHidden = showSearch
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Select Relationship"
-        label.font = UIFont(name: "OpenSans-Bold", size: 16)
-        label.textColor = UIColor(hex: "#474747FF")
-        row.addArrangedSubview(label)
-        
-        
-        
-        row.addArrangedSubview(button)
-        col.addArrangedSubview(row)
-        
-        let row1 = UIView.VStack(spacing: 0, alignment: .fill, distribution: .fill)
-        row1.translatesAutoresizingMaskIntoConstraints = false
-       
-        searchBar = UISearchBar()
-        
-        searchBar?.delegate = self
-        
-        searchBar?.isHidden = !showSearch
-       searchBar?.translatesAutoresizingMaskIntoConstraints = false
-        searchBar?.heightAnchor.constraint(equalToConstant: 52).isActive = true
-        searchBar?.layer.cornerRadius = 26
-        searchBar?.layer.masksToBounds = true
-        searchBar?.barTintColor = UIColor.white
-        searchBar?.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
-        row1.addArrangedSubview(searchBar!)
-        
-        col.addArrangedSubview(row1)
-        return col
-//        self.listTable.beginUpdates()
-//        self.listTable.setNeedsLayout()
-//            self.listTable.endUpdates()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -207,18 +222,18 @@ extension ListView: UITableViewDelegate {
         
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = setTableHeader()
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: tableView.bounds.size.width, height: 60)))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        return view
-    }
-    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = setTableHeader()
+//        return headerView
+//    }
+//    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let view = UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: tableView.bounds.size.width, height: 60)))
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = .white
+//        return view
+//    }
+//
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 60
     }
@@ -270,6 +285,13 @@ extension ListView: UISearchBarDelegate {
         }
         self.listTable.reloadData()
        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.isHidden = true
+        filteredData = tableData
+        self.listTable.reloadData()
+        self.searchButton.isHidden = false
     }
 }
 
