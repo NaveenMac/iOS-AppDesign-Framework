@@ -77,6 +77,7 @@ class ListView: UIViewController {
         searchButton.isHidden = showSearch
         
         let wrapper = UIView.VStack(spacing: 5,alignment: .fill, distribution: .fill)
+        //
         wrapper.translatesAutoresizingMaskIntoConstraints = false
         
         wrapper.backgroundColor = .white
@@ -85,8 +86,9 @@ class ListView: UIViewController {
         wrapper.addArrangedSubview(titleView)
         wrapper.addArrangedSubview(searchBar)
         wrapper.addArrangedSubview(listTable)
-        wrapper.layer.cornerRadius = 20
         wrapper.layer.masksToBounds = true
+        
+        wrapper.layer.cornerRadius = 20
         //wrapper.roundCorners(corners: [.topLeft,.topRight], radius: 20)
         self.view.addSubview(wrapper)
         
@@ -103,7 +105,7 @@ class ListView: UIViewController {
         addConstraints(views: views)
         
         animateView(view: wrapper)
-      
+        
         
     }
     
@@ -118,11 +120,12 @@ class ListView: UIViewController {
         
         view.transform = CGAffineTransform(translationX: 0, y: 500)
         
-        UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.5,
-        initialSpringVelocity: 0.5, options: [], animations: {
+        UIView.animate(withDuration: 0.7, delay: 0.0, options: [], animations: {
             view.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }, completion: {_ in
             
+        }, completion: {_ in
+            view.layer.cornerRadius = 0
+            view.roundCorners(corners: [.topLeft,.topRight], radius: 20)
             })
     }
     

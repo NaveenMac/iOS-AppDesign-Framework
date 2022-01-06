@@ -87,7 +87,7 @@ extension String {
     
     struct ColorHex {
         static let  body = "#FAFAFAFF"
-        static let filesHeader = "#4325D2FF"
+        static let filesHeader = "#4123D0FF"
         static let healthFolder = "#4AC367FF"
         static let educationFolder = "#FFB54AFF"
         

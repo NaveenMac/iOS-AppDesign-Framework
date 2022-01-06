@@ -154,42 +154,35 @@ extension UIViewController {
         }
     }
     
-    func changeTopBarColor(color:UIColor){
+    func changeTopBarColor(bgColor:UIColor,textColor:UIColor){
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.barTintColor = color
-        self.navigationController?.navigationBar.backgroundColor = color
+        self.navigationController?.navigationBar.barTintColor = bgColor
+        self.navigationController?.navigationBar.backgroundColor = bgColor
         if #available(iOS 13.0, *) {
-            let app = UIApplication.shared
-            var statusBarHeight: CGFloat
-            if UIDevice().hasNotch {
-               statusBarHeight = app.statusBarFrame.size.height+20
-            }else{
-                statusBarHeight = app.statusBarFrame.size.height
-            }
-            
-            
-            let statusbarView = UIView()
-            statusbarView.backgroundColor = color
-            view.addSubview(statusbarView)
-          
-            statusbarView.translatesAutoresizingMaskIntoConstraints = false
-            statusbarView.heightAnchor
-                .constraint(equalToConstant: statusBarHeight).isActive = true
-            
-            statusbarView.widthAnchor
-                .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
-            statusbarView.topAnchor
-                .constraint(equalTo: view.topAnchor).isActive = true
-            statusbarView.centerXAnchor
-                .constraint(equalTo: view.centerXAnchor).isActive = true
+            let navBarAppearance = UINavigationBarAppearance()
+           
+                navBarAppearance.configureWithOpaqueBackground()
+                navBarAppearance.titleTextAttributes = [.foregroundColor: textColor]
+                navBarAppearance.largeTitleTextAttributes = [.foregroundColor: textColor]
+                navBarAppearance.backgroundColor = bgColor
+            navBarAppearance.shadowImage = nil // line
+            navBarAppearance.shadowColor = nil // line
+            self.navigationController?.navigationBar.standardAppearance = navBarAppearance
+            self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
           
         } else {
+            UINavigationBar.appearance().shadowImage = nil
+            
+            self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: textColor]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: textColor]
             let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-            statusBar?.backgroundColor = color
+            statusBar?.backgroundColor = bgColor
         }
+        
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.shadowImage = nil
     }
     
 }
