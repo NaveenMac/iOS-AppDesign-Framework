@@ -281,11 +281,7 @@ extension UIView {
             button.setBackgroundColor(UIColor(hex: property.value!), for: .disabled)
            case Attributes.fontSize.rawValue:
            button.titleLabel?.font = UIFont.appRegularFontWith(size:CGFloat((property.value! as NSString).floatValue))
-           case Attributes.width.rawValue:
-               NSLayoutConstraint.activate([
-                   button.widthAnchor.constraint(equalToConstant:CGFloat((property.value! as NSString).floatValue))
-               ])
-           case Attributes.cornerRadius.rawValue:
+            case Attributes.cornerRadius.rawValue:
                button.layer.cornerRadius = CGFloat((property.value! as NSString).floatValue)
                button.layer.masksToBounds = true
                
@@ -605,5 +601,38 @@ extension UIView {
             layer.mask = mask
         }
     
+    func anchor (top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat, enableInsets: Bool) {
+    var topInset = CGFloat(0)
+    var bottomInset = CGFloat(0)
+    
+    if #available(iOS 11, *), enableInsets {
+    let insets = self.safeAreaInsets
+    topInset = insets.top
+    bottomInset = insets.bottom
+    
+    }
+    
+    translatesAutoresizingMaskIntoConstraints = false
+    
+    if let top = top {
+    self.topAnchor.constraint(equalTo: top, constant: paddingTop+topInset).isActive = true
+    }
+    if let left = left {
+    self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+    }
+    if let right = right {
+    rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+    }
+    if let bottom = bottom {
+    bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom-bottomInset).isActive = true
+    }
+    if height != 0 {
+    heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+    if width != 0 {
+    widthAnchor.constraint(equalToConstant: width).isActive = true
+    }
+    
+    }
 }
 
