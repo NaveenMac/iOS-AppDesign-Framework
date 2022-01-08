@@ -1,8 +1,8 @@
 //
-//  OptionFieldStyle.swift
-//  UserNominees
+//  RadioFieldStyle.swift
+//  DigiLocker
 //
-//  Created by Naveen Chauhan on 02/12/21.
+//  Created by Naveen Chauhan on 09/12/21.
 //
 
 import UIKit
@@ -33,20 +33,21 @@ struct RadioFieldStyle:Codable {
     }
     
     static func getRadioButtonGroup(tag:Int, style:RadioFieldStyle)->UIStackView {
-        let stack = UIView.VStack(spacing: 5,alignment: .fill, distribution: .fill)
+        let stack = UIView.VStack(spacing: 5,alignment: .leading, distribution: .fillProportionally)
         stack.tag = tag
         let title = PaddedLabel()
+        
         title.font = UIFont.systemFont(ofSize: 12.76)
         title.textColor = UIColor.TextField.activeText
         
         if let text = style.title?.text {
-            title.text = text
+            title.text = text.localized()
            
         }
         stack.addArrangedSubview(title)
         
         if let data = style.list {
-            let group = UIView.HStack(spacing: 40,alignment: .leading, distribution: .fillProportionally)
+            let group = UIView.HStack(spacing: 20,alignment: .leading, distribution: .fillProportionally)
             group.translatesAutoresizingMaskIntoConstraints = false
             group.isLayoutMarginsRelativeArrangement = true
            
@@ -55,11 +56,14 @@ struct RadioFieldStyle:Codable {
             for label in data {
                 index = index + 1
                 let button = UIButton()
-                button.tag = index
+                button.translatesAutoresizingMaskIntoConstraints = false
                 
-                button.setTitle(label, for: .normal)
+                button.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                button.tag = index
+            
+                button.setTitle(label.localized(), for: .normal)
                     button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right:9)
-                    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
+                    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
                 button.contentHorizontalAlignment = .left
                 button.contentVerticalAlignment = .center
                 

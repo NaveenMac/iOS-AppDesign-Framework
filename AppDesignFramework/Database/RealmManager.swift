@@ -212,6 +212,7 @@ extension RealmManager where T: Object {
             self.addOrUpdateWithRealm(realm: realm,
                                       object: object,
                                       completion: completion)
+            
         }
     }
     

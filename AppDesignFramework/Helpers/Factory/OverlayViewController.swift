@@ -26,7 +26,7 @@ class OverlayViewController: UIViewController {
     }()
     
     // Constants
-    let defaultHeight: CGFloat = 300
+    var defaultHeight: CGFloat = 300
     let dismissibleHeight: CGFloat = 200
     let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
     // keep current new height, initial is default height
@@ -78,7 +78,7 @@ class OverlayViewController: UIViewController {
         containerView.anchor(
             top: nil,
             left: self.view.leftAnchor,
-            bottom: nil,
+            bottom: self.view.bottomAnchor,
             right: self.view.rightAnchor,
             paddingTop: 0,
             paddingLeft: 0,
@@ -203,28 +203,28 @@ class OverlayViewController: UIViewController {
     
     @objc internal func keyboardWillShow(_ notification : Notification?) -> Void {
         
-        var _kbSize:CGSize!
-        
-        if let info = notification?.userInfo {
-
-            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
-            
-            //  Getting UIKeyboardSize.
-            if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
-                
-                let screenSize = UIScreen.main.bounds
-                
-                //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
-                let intersectRect = kbFrame.intersection(screenSize)
-                
-                if intersectRect.isNull {
-                    _kbSize = CGSize(width: screenSize.size.width, height: 0)
-                } else {
-                    _kbSize = intersectRect.size
-                }
-                let newHeight = self.defaultHeight + _kbSize.height
-                self.animateContainerHeight(newHeight)
-            }
-        }
+//        var _kbSize:CGSize!
+//        
+//        if let info = notification?.userInfo {
+//
+//            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
+//            
+//            //  Getting UIKeyboardSize.
+//            if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
+//                
+//                let screenSize = UIScreen.main.bounds
+//                
+//                //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
+//                let intersectRect = kbFrame.intersection(screenSize)
+//                
+//                if intersectRect.isNull {
+//                    _kbSize = CGSize(width: screenSize.size.width, height: 0)
+//                } else {
+//                    _kbSize = intersectRect.size
+//                }
+//                let newHeight = self.defaultHeight - _kbSize.height
+//                self.animateContainerHeight(newHeight)
+//            }
+//        }
     }
 }
