@@ -38,7 +38,7 @@ public class RealmManager<T> {
 //        self.fileUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier:
 //                                                            Constants.APP_GROUP)!.appendingPathComponent("filemanager.realm")
 //
-            background = RealmThread(start: true,
+                background = RealmThread(start: true,
                                  queue: nil)
         
         background?.enqueue {[weak self] in
