@@ -56,14 +56,15 @@ struct RadioFieldStyle:Codable {
             for label in data {
                 index = index + 1
                 let button = UIButton()
-                button.translatesAutoresizingMaskIntoConstraints = false
-                
-                button.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                //button.translatesAutoresizingMaskIntoConstraints = false
+                button.titleLabel?.sizeToFit()
+               // button.widthAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+//                button.widthAnchor.constraint(equalToConstant: button.titleLabel!.intrinsicContentSize.width + 14).isActive = true
                 button.tag = index
             
-                button.setTitle(label.localized(), for: .normal)
-                    button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right:9)
-                    button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
+                button.setTitle("  \(label.localized())", for: .normal)
+//                    button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right:9)
+               //     button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
                 button.contentHorizontalAlignment = .left
                 button.contentVerticalAlignment = .center
                 
@@ -71,7 +72,7 @@ struct RadioFieldStyle:Codable {
                 button.setImage(UIImage(named: "nominee_unselected_radio"), for: .normal)
                 button.setImage(UIImage(named: "nominee_selected_radio"), for: .selected)
                 button.isSelected = false
-                
+                button.layoutIfNeeded()
                 
                 
                
