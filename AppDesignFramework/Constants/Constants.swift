@@ -11,13 +11,14 @@ struct Constants {
     static let APP_GROUP = "group.com.appgroup.ios"
     static let FILE_DIR = "files"
     static let USER_DIR = "user"
-    static let JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZGlnaWxvY2tlci5nb3YuaW4iLCJhdWQiOiJESUdJTE9DS0VSIiwiaWF0IjoxNjQxNDcwNTQyLCJuYmYiOjE2NDE0NzA0ODIsImV4cCI6MTY0MTQ3NDE0MiwiZGF0YSI6eyJzdGF0dXMiOiJzdWNjZXNzIiwidXNlcm5hbWUiOiJOeFY4Y21vNzNHdUxtTHVldUlTTVlGdFRPVmVQbE1BZWZGS0hRcGRKR3FXeU9seEx3NU1id3BCYkdRVFlNYnZTIiwiZGlnaWxvY2tlcmlkIjoiMTgyZjdkMjAtYzVjZS01OTIyLWJhZjMtOWU5ZmYxYWYwYjVlIn19.CQbR_uX9JerscKLrInf6BP7K9DhSaVwYhW-HD6GYU60"
+    static let JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZGlnaWxvY2tlci5nb3YuaW4iLCJhdWQiOiJESUdJTE9DS0VSIiwiaWF0IjoxNjQxNzk0MzE2LCJuYmYiOjE2NDE3OTQyNTYsImV4cCI6MTY0MTc5NzkxNiwiZGF0YSI6eyJzdGF0dXMiOiJzdWNjZXNzIiwidXNlcm5hbWUiOiJuNGFuQkdsM3pTTW5iYXBQSzVqZ3VVTXd5Ti0tLTBWUE9tZ1dwWFQ4S2U1NU0tLS1uNHdoZkpuWUd6MTMxeG9HZWpPeSIsImRpZ2lsb2NrZXJpZCI6IjNmMDM3ODA2LTg3ZDktNTVjZi1hOWQzLWFlMzU0OGQ0NWU4ZiJ9fQ.QYE-mNztNRf7mmygmXHjmVJ60BYgwiok_6bPhCKA8sE"
     static let DEFAULT_FILES = """
                              {"status":"success","data":[{"Name":"Folder 1","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"Folder 2","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"Folder 3","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"File 1","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"},{"Name":"File 2","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"},{"Name":"File 3","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"}]}
                              """
     
     static let USERNAME = "nvn.fullstack.dev"
     static let MOBILENO = "9911017799"
+    
 }
 
 
