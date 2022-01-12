@@ -34,7 +34,9 @@ struct NetworkManager {
             guard let data = data else {return .failure(NetworkResponse.authenticationError.rawValue)}
 //            return .failure(NetworkResponse.authenticationError.rawValue)
             if  let apiData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers),
-                let apiResponse = try? JSONDecoder().decode(FileApiResponse.self, from: apiData as! Data) {
+
+                let apiResponse = try? JSONDecoder().decode(ProfileApiResponse     .self, from: apiData as! Data) {
+
                 return .failure(apiResponse.errorDescription ?? NetworkResponse.authenticationError.rawValue)
             }
                else{

@@ -129,8 +129,9 @@ extension MDCFilledTextField {
         let maxDate = Date()
         if #available(iOS 14, *) {
             datePicker.preferredDatePickerStyle = .inline
+        }else  if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
         }
-        
         
         datePicker.datePickerMode = .date //2
         datePicker.maximumDate = maxDate
