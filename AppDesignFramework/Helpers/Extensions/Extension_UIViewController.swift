@@ -71,7 +71,9 @@ extension UIViewController {
             
             allConstraints += HConstraints
             let VConstraints = NSLayoutConstraint.constraints(
-                withVisualFormat: "V:[label]-40-|",
+
+                withVisualFormat: "V:[label]-30-|",
+
                 options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
               metrics: nil,
                 views: ["superview":window, "label":toastLabel])
@@ -183,6 +185,10 @@ extension UIViewController {
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.shadowImage = nil
+    }
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
 }
