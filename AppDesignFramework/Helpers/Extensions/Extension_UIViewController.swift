@@ -71,11 +71,9 @@ extension UIViewController {
             
             allConstraints += HConstraints
             let VConstraints = NSLayoutConstraint.constraints(
-<<<<<<< HEAD
+
                 withVisualFormat: "V:[label]-30-|",
-=======
-                withVisualFormat: "V:[label]-40-|",
->>>>>>> a54e37b774434795111d15f0b8e16fa11ea5e3b4
+
                 options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
               metrics: nil,
                 views: ["superview":window, "label":toastLabel])
