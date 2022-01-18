@@ -12,7 +12,9 @@ struct Constants {
     static let FILE_DIR = "files"
     static let USER_DIR = "user"
 
+
     static let JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZGlnaWxvY2tlci5nb3YuaW4iLCJhdWQiOiJESUdJTE9DS0VSIiwiaWF0IjoxNjQxOTY4ODY0LCJuYmYiOjE2NDE5Njg4MDQsImV4cCI6MTY0MTk3MjQ2MywiZGF0YSI6eyJzdGF0dXMiOiJzdWNjZXNzIiwidXNlcm5hbWUiOiJuNGFuQkdsM3pTTW5iYXBQSzVqZ3VVTXd5Ti0tLTBWUE9tZ1dwWFQ4S2U1NU0tLS1uNHdoZkpuWUd6MTMxeG9HZWpPeSIsImRpZ2lsb2NrZXJpZCI6IjNmMDM3ODA2LTg3ZDktNTVjZi1hOWQzLWFlMzU0OGQ0NWU4ZiJ9fQ.CN_NdSYal4XjbUbEq9avwRq_InPEQ3Ipb_GcX57-ppA"
+
 
     static let DEFAULT_FILES = """
                              {"status":"success","data":[{"Name":"Folder 1","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"Folder 2","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"Folder 3","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"Collection"},{"Name":"File 1","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"},{"Name":"File 2","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"},{"Name":"File 3","Key":"hello","human_size":"1 MB","LastModified":"10-10-2010","Size":"2MB","Ext":"PDF"}]}
