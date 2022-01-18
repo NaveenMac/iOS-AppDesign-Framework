@@ -21,6 +21,15 @@ struct Constants {
     static let USERNAME = "nvn.fullstack.dev"
     static let MOBILENO = "9911017799"
     
+    
+    enum User {
+        static var fullName:String?
+        static var mobile:String?
+        static var email: String?
+        static var gender: String?
+       
+    }
+    
 }
 
 
